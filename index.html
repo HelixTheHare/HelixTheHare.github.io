@@ -19,12 +19,12 @@
     --border:       #2a2a2a;
     --border-light: #333333;
 
-    --gold:         #FFAA00;
-    --gold-bright:  #f0bc30;
-    --gold-dim:     #8a6510;
-    --gold-subtle:  #1e1709;
-    --gold-glow:    rgba(212, 160, 23, 0.15);
-    --gold-glow2:   rgba(212, 160, 23, 0.06);
+    --gold:         #ffaa00;
+    --gold-bright:  #ffcc44;
+    --gold-dim:     #aa6f00;
+    --gold-subtle:  #1f1500;
+    --gold-glow:    rgba(255, 170, 0, 0.15);
+    --gold-glow2:   rgba(255, 170, 0, 0.06);
 
     --text:         #e8e0d0;
     --text-muted:   #8a8070;
@@ -54,6 +54,7 @@
     overflow-x: hidden;
   }
 
+  /* Subtle gold-tinted noise overlay */
   body::before {
     content: '';
     position: fixed;
@@ -199,26 +200,27 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 70% 60% at 60% 50%, rgba(212,160,23,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 70% 60% at 60% 50%, rgba(255,170,0,0.07) 0%, transparent 70%),
       repeating-linear-gradient(
         90deg,
         transparent,
         transparent 79px,
-        rgba(212,160,23,0.025) 80px
+        rgba(255,170,0,0.025) 80px
       ),
       repeating-linear-gradient(
         0deg,
         transparent,
         transparent 79px,
-        rgba(212,160,23,0.025) 80px
+        rgba(255,170,0,0.025) 80px
       );
   }
 
+  /* Blueprint grid dots */
   .hero::after {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, rgba(212,160,23,0.18) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(255,170,0,0.18) 1px, transparent 1px);
     background-size: 80px 80px;
     background-position: 40px 40px;
     opacity: 0.4;
@@ -592,7 +594,7 @@
   .code-block code .nm  { color: var(--gold); }
 
   /* ═══════════════════════════════════════
-     ENUM / MENU TABLE
+     ENUM TABLE
   ═══════════════════════════════════════ */
   .enum-table {
     border: 1px solid var(--border);
@@ -768,7 +770,7 @@
   .hero-badges { animation: fadeInUp 0.6s ease 0.26s both; }
 
   /* ═══════════════════════════════════════
-     TAGS
+     ACTIVE STATE TRACKING
   ═══════════════════════════════════════ */
   .tag {
     display: inline-block;
@@ -784,85 +786,6 @@
   .tag.int    { color: #90c060; border-color: rgba(144,192,96,0.3); background: rgba(144,192,96,0.07); }
   .tag.float  { color: #c0a060; border-color: rgba(192,160,96,0.3); background: rgba(192,160,96,0.07); }
   .tag.enum   { color: #c080e0; border-color: rgba(192,128,224,0.3); background: rgba(192,128,224,0.07); }
-  .tag.string { color: #90c060; border-color: rgba(144,192,96,0.3); background: rgba(144,192,96,0.07); }
-
-  /* ═══════════════════════════════════════
-     NODE DIAGRAM (Named Reroute illustration)
-  ═══════════════════════════════════════ */
-  .node-diagram {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    margin: 24px 0;
-    flex-wrap: wrap;
-  }
-
-  .node-box {
-    background: var(--card);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    overflow: hidden;
-    min-width: 160px;
-    transition: border-color 0.2s;
-  }
-
-  .node-box:hover { border-color: var(--gold-dim); }
-
-  .node-title-bar {
-    padding: 8px 14px;
-    font-family: var(--font-title);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .node-title-bar.decl { background: rgba(0, 80, 255, 0.25); color: #9ab8ff; border-color: rgba(0,80,255,0.3); }
-  .node-title-bar.usage { background: rgba(0, 80, 255, 0.25); color: #9ab8ff; border-color: rgba(0,80,255,0.3); }
-
-  .node-pins {
-    padding: 10px 0;
-  }
-
-  .node-pin {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 14px;
-    font-family: var(--font-code);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-  }
-
-  .node-pin.output { justify-content: flex-end; }
-
-  .pin-dot {
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    border: 2px solid #8090a0;
-    background: transparent;
-    flex-shrink: 0;
-  }
-
-  .pin-dot.connected { background: #8090a0; }
-  .pin-dot.exec { border-color: #fff; background: #fff; }
-
-  .diagram-arrow {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    color: var(--gold-dim);
-    font-size: 1.5rem;
-  }
-
-  .diagram-arrow span {
-    font-family: var(--font-code);
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    color: var(--text-dim);
-    white-space: nowrap;
-  }
 </style>
 </head>
 <body>
@@ -873,7 +796,7 @@
 <nav class="sidebar">
   <div class="sidebar-logo">
     <div class="plugin-name">Gridline Blueprints</div>
-    <span class="version-tag">v1.0 · UE 5.7 · Documentation</span>
+    <span class="version-tag">Documentation</span>
   </div>
 
   <div class="nav-section-title">Getting Started</div>
@@ -889,7 +812,6 @@
   <a href="#node-avoidance"><span class="nav-icon">⬚</span> Node Avoidance</a>
   <a href="#junctions"><span class="nav-icon">✕</span> Junctions</a>
   <a href="#reroute-nodes"><span class="nav-icon">⤷</span> Reroute Nodes</a>
-  <a href="#named-reroutes"><span class="nav-icon">⬡</span> Named Reroutes</a>
   <a href="#animation"><span class="nav-icon">◉</span> Wire Animation</a>
 
   <div class="nav-section-title">Technical</div>
@@ -916,7 +838,6 @@
         <span class="badge gold"><span class="badge-dot"></span>Unreal Engine Plugin</span>
         <span class="badge">Editor-Only Module</span>
         <span class="badge">Blueprint &amp; AnimGraph</span>
-        <span class="badge">UE 5.7</span>
         <span class="badge">© 2025 HelixTheHare</span>
       </div>
     </div>
@@ -958,10 +879,6 @@
         <div class="info-card">
           <div class="card-title">⤷ Hidden Reroute Nodes</div>
           <div class="card-body">Make reroute nodes invisible, integrating them seamlessly into the wire path. They reappear on hover for easy selection.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">⬡ Named Reroutes</div>
-          <div class="card-body">Named Reroute Declaration and Usage nodes let you tag a wire with a name and color, then re-tap that value anywhere in the Blueprint — even across graphs.</div>
         </div>
         <div class="info-card">
           <div class="card-title">◉ Flow Animation</div>
@@ -1052,12 +969,7 @@
         <div class="setting-row">
           <div class="setting-cell"><span class="setting-name">Enable for Blueprint Graphs</span></div>
           <div class="setting-cell"><span class="tag bool">bool</span></div>
-          <div class="setting-cell"><span class="setting-desc">Applies orthogonal routing to Blueprint event graphs and function editors. Disable to use default routing in Blueprint Graphs while keeping the plugin active for other graph types. <span class="default-tag">default: true</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Enable for Animation Graphs</span></div>
-          <div class="setting-cell"><span class="tag bool">bool</span></div>
-          <div class="setting-cell"><span class="setting-desc">Applies orthogonal routing to Animation event graphs and function editors. Disable to use default routing in Animation Graphs while keeping the plugin active for other graph types. <span class="default-tag">default: true</span></span></div>
+          <div class="setting-cell"><span class="setting-desc">Applies orthogonal routing to Blueprint event graphs and function editors. Disable to use default routing in Blueprints while keeping the plugin active for other graph types. <span class="default-tag">default: true</span></span></div>
         </div>
       </div>
     </section>
@@ -1141,7 +1053,7 @@
         <div class="setting-row">
           <div class="setting-cell"><span class="setting-name">Corner Style</span></div>
           <div class="setting-cell"><span class="tag enum">enum</span></div>
-          <div class="setting-cell"><span class="setting-desc">Visual treatment of corner curves. Only applies when Corner Size &gt; 0. <span class="default-tag">default: Eased</span></span></div>
+          <div class="setting-cell"><span class="setting-desc">Visual treatment of corner curves. Only applies when Corner Size &gt; 0. <span class="default-tag">default: Smooth</span></span></div>
         </div>
       </div>
 
@@ -1150,8 +1062,8 @@
         <table>
           <thead><tr><th>Value</th><th>Description</th></tr></thead>
           <tbody>
-            <tr><td>Eased</td><td>Standard Bézier arc. A gentle, natural-feeling curve. Most similar to the default spline look but constrained to 90°. <em>(Default)</em></td></tr>
-            <tr><td>Fillet</td><td>A more geometrically precise quarter-circle arc. Produces a crisp, technical schematic look.</td></tr>
+            <tr><td>Smooth</td><td>Standard Bézier arc. A gentle, natural-feeling curve. Most similar to the default spline look but constrained to 90°. <em>(Default)</em></td></tr>
+            <tr><td>Circular</td><td>A more geometrically precise quarter-circle arc. Produces a crisp, technical schematic look.</td></tr>
             <tr><td>Chamfer</td><td>Cuts a straight diagonal line across the corner instead of curving. Produces a sharp, angled miter.</td></tr>
           </tbody>
         </table>
@@ -1333,226 +1245,6 @@
       </div>
     </section>
 
-    <!-- ══ NAMED REROUTES ══ -->
-    <div id="named-reroutes" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">⬡</span>
-        <h2>Named Reroutes</h2>
-      </div>
-
-      <p>
-        Named Reroutes are a two-node system for tagging a wire with a persistent name and color, then
-        re-tapping that same value from anywhere in the Blueprint — including across different graphs.
-        Where a standard Reroute node is an anonymous waypoint, a Named Reroute is a <em>named variable tap</em>:
-        one Declaration captures the value, and any number of Usage nodes read it back.
-      </p>
-
-      <h3>The Two-Node Pattern</h3>
-
-      <div class="node-diagram">
-        <div class="node-box">
-          <div class="node-title-bar decl">MyValue</div>
-          <div class="node-pins">
-            <div class="node-pin"><span class="pin-dot connected"></span> (input)</div>
-            <div class="node-pin output">(output) <span class="pin-dot"></span></div>
-          </div>
-        </div>
-        <div class="diagram-arrow">
-          →→→ <span>GUID link</span>
-        </div>
-        <div class="node-box">
-          <div class="node-title-bar usage">MyValue</div>
-          <div class="node-pins">
-            <div class="node-pin output">(output) <span class="pin-dot connected"></span></div>
-          </div>
-        </div>
-        <div class="diagram-arrow">
-          →→→ <span>GUID link</span>
-        </div>
-        <div class="node-box">
-          <div class="node-title-bar usage">MyValue</div>
-          <div class="node-pins">
-            <div class="node-pin output">(output) <span class="pin-dot connected"></span></div>
-          </div>
-        </div>
-      </div>
-
-      <p>
-        A <strong>Declaration</strong> node has both an input pin (where the source value enters) and an output pin.
-        A <strong>Usage</strong> node exposes only an output pin — it reads the value captured by its paired Declaration
-        and makes it available at that point in the graph. Each pair is linked by a stable GUID that survives
-        renaming, copy/paste, undo, and Blueprint recompilation.
-      </p>
-
-      <div class="card-grid">
-        <div class="info-card">
-          <div class="card-title">⬡ Declaration Node</div>
-          <div class="card-body">Has a <strong>Name</strong> (editable inline or via Properties) and a <strong>Color</strong> for the title bar. The name is automatically made unique within the Blueprint when placed or renamed. Accepts any wildcard pin type — the type resolves when you connect a wire to the input.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">◈ Usage Node</div>
-          <div class="card-body">Shows only a single output pin. Displays the same name and title color as its Declaration. The pin type mirrors the Declaration's resolved type and updates automatically when the Declaration's type changes. The hidden structural input pin is an internal bookkeeping link and is never drawn.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">🔗 GUID Identity</div>
-          <div class="card-body">Each Declaration holds a <code>VariableGuid</code> that Usage nodes store in <code>DeclarationGuid</code>. This GUID is stable across renames, undo/redo, and editor restarts. If the Declaration pointer becomes stale, Usage nodes re-resolve it from the GUID automatically.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">↝ Type Propagation</div>
-          <div class="card-body">When any pin connected to the Declaration's input or any Usage's output changes type, <code>PropagatePinType</code> pushes the resolved type to the Declaration's output, all Usage outputs, and notifies every downstream node of the change.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">⌖ Cross-Graph Usage</div>
-          <div class="card-body">Usage nodes can be placed in any graph within the same Blueprint — event graphs, function graphs, macro graphs, and Animation Blueprints. The Declaration searches all graphs via <code>GetAllGraphs</code> when resolving by GUID.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">⚙ Compiler Expansion</div>
-          <div class="card-body">During Blueprint compilation, Usage nodes are transparent: they walk upstream through the Declaration's input chain (tracing through Knot nodes and chained Declarations) to find the first real source pin, then reconnect all consumers to that pin directly before removing themselves.</div>
-        </div>
-      </div>
-
-      <h3>Adding Named Reroutes</h3>
-      <ol class="steps">
-        <li><p><strong>Place a Declaration:</strong> Right-click in any Blueprint graph and search for <strong>"Add Named Reroute Declaration"</strong>. The node is placed with a default name (<code>Name</code>) and blue title color. Connect a wire to its input to capture the value.</p></li>
-        <li><p><strong>Rename it:</strong> Double-click the node title to rename it inline, or open the node's <strong>Details</strong> panel and edit the <strong>Name</strong> property. The name is validated to be unique — a numeric suffix is appended automatically if a conflict exists.</p></li>
-        <li><p><strong>Change the color:</strong> In the <strong>Details</strong> panel, click the <strong>Node Color</strong> swatch. All Usage nodes sharing this Declaration immediately update to show the new color.</p></li>
-        <li><p><strong>Create a Usage:</strong> Right-click the Declaration and choose <strong>Create Reroute Usage</strong>, or search for the Declaration's name in the action menu of the target graph. The Usage node appears with only an output pin — wire it to any input that needs the value.</p></li>
-      </ol>
-
-      <h3>Context Menu Actions</h3>
-      <p>Each node type in the Named Reroute system adds entries to the graph editor's right-click context menu under the <strong>Node Actions</strong> section.</p>
-
-      <h3 style="margin-top:20px">On a Reroute (Knot) Node</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Action</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Convert to Named Reroute</td>
-              <td>Replaces the Knot node with a new Named Reroute Declaration, preserving all incoming and outgoing connections. If the Knot had outgoing links, a matching Usage node is placed immediately to the right and wired up. The Knot's pin type is resolved and applied to the new Declaration automatically.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>On a Named Reroute Declaration</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Action</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Select Named Reroute Usages</td>
-              <td>Opens the Blueprint's Find Results panel and searches for all Usage nodes that reference this Declaration by name. Results are scoped to the current Blueprint only.</td>
-            </tr>
-            <tr>
-              <td>Create Reroute Usage</td>
-              <td>Spawns a new Usage node immediately to the right of the Declaration (offset by 144 units), already linked and typed. Equivalent to double-clicking "Jump to Definition" from a Usage.</td>
-            </tr>
-            <tr>
-              <td>Convert to Reroute</td>
-              <td>Replaces this Declaration (and <em>all</em> its Usage nodes across all graphs) with a single standard Reroute (Knot) node placed at the Declaration's position. All incoming and outgoing connections — from both the Declaration and every Usage — are transferred to the new Knot's input and output respectively.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>On a Named Reroute Usage</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Action</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Select Named Reroute Declaration</td>
-              <td>Navigates to the graph containing the paired Declaration, clears the current selection, selects the Declaration node, and zooms to fit it in view. Works across graphs — opens the correct graph tab automatically.</td>
-            </tr>
-            <tr>
-              <td>Convert to Reroute</td>
-              <td>Same as the Declaration's "Convert to Reroute" if the Declaration still exists. If the Usage is orphaned (its Declaration was deleted), replaces only this Usage with a standard Reroute node, preserving its outgoing connections.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Jump to Definition</h3>
-      <p>
-        Both node types support Unreal Engine's standard <strong>Jump to Definition</strong> action (accessible via
-        the right-click menu or the keyboard shortcut). The behavior is intentionally asymmetric:
-      </p>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Node</th><th>Jump to Definition Behavior</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Declaration</td>
-              <td>Opens the Find Results panel and searches for all Usage nodes that reference this Declaration by name — effectively "find all usages." Only available if at least one Usage node exists.</td>
-            </tr>
-            <tr>
-              <td>Usage</td>
-              <td>Navigates directly to the Declaration node in whichever graph it lives in: opens the graph tab, selects the Declaration, and zooms to fit. Only available if the Declaration is valid.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Behavior Reference</h3>
-      <div class="settings-grid">
-        <div class="setting-row header-row">
-          <div class="setting-cell">Event</div>
-          <div class="setting-cell" style="min-width:90px">Affects</div>
-          <div class="setting-cell">What Happens</div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Rename Declaration</span></div>
-          <div class="setting-cell"><span class="setting-desc">All Usages</span></div>
-          <div class="setting-cell"><span class="setting-desc">Name is validated for uniqueness (numeric suffix appended if needed). All Usage nodes call <code>ReconstructNode</code> to update their displayed title. The Blueprint action database refreshes so the renamed Declaration appears correctly in action menus.</span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Recolor Declaration</span></div>
-          <div class="setting-cell"><span class="setting-desc">All Usages</span></div>
-          <div class="setting-cell"><span class="setting-desc">All Usage nodes immediately notify their graph of a visual change via <code>NotifyNodeChanged</code>, causing the title bar color to update in real time across every graph the Usage appears in.</span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Delete Declaration</span></div>
-          <div class="setting-cell"><span class="setting-desc">All Usages</span></div>
-          <div class="setting-cell"><span class="setting-desc">All Usage nodes have their <code>Declaration</code> pointer cleared and call <code>ReconstructNode</code>, leaving them in an "Invalid Named Reroute" state. They display a black title bar and an invalid title, but remain in the graph and can be manually deleted or converted.</span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Copy &amp; Paste</span></div>
-          <div class="setting-cell"><span class="setting-desc">Declaration</span></div>
-          <div class="setting-cell"><span class="setting-desc">Each pasted Declaration receives a brand-new <code>VariableGuid</code>, making it fully independent from the original. The name is also made unique. Co-pasted Usage nodes (pasted in the same operation) automatically adopt the new Declaration via their <code>TObjectPtr</code> reference, with no manual re-linking required.</span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Undo / Redo</span></div>
-          <div class="setting-cell"><span class="setting-desc">Both</span></div>
-          <div class="setting-cell"><span class="setting-desc">After any undo, Usage nodes re-call <code>FindDeclaration()</code> from the stored GUID to restore their <code>Declaration</code> pointer, then reconnect the structural input pin and propagate the pin type. Declaration nodes re-run <code>PropagatePinType</code> to restore all Usage types.</span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Blueprint Recompile</span></div>
-          <div class="setting-cell"><span class="setting-desc">Both</span></div>
-          <div class="setting-cell"><span class="setting-desc">During compilation, Usage nodes call <code>ExpandNode</code>: the structural link is broken, then the compiler traces upstream through the Declaration's input chain to find the real source pin and reconnects all consumers directly, making the Named Reroute system fully transparent to compiled output.</span></div>
-        </div>
-      </div>
-
-      <h3>Action Menu Filtering</h3>
-      <p>
-        Usage node spawners are only shown in a Blueprint's action menu if a matching Declaration (identified by GUID)
-        exists somewhere in that Blueprint. This prevents stale entries from accumulating in the action panel after
-        Declarations are deleted. The action database is refreshed automatically whenever a Declaration is placed,
-        renamed, or destroyed.
-      </p>
-
-      <div class="callout warning">
-        <div class="callout-label">Important</div>
-        <p>Declaration names must be unique <strong>per Blueprint</strong>, not per graph. Two Declarations in the same Blueprint cannot share a name even if they are in different function graphs. If you paste a Declaration whose name already exists, a numeric suffix is appended automatically (e.g., <code>Name</code> → <code>Name1</code>).</p>
-      </div>
-
-      <div class="callout note">
-        <div class="callout-label">Cross-Graph Note</div>
-        <p>Usage nodes search all graphs in the owning Blueprint when resolving their Declaration. This means a Declaration in an event graph can be referenced by a Usage in a function graph and vice versa. However, Named Reroutes cannot span <em>across</em> different Blueprint assets.</p>
-      </div>
-    </section>
-
     <!-- ══ ANIMATION ══ -->
     <div id="animation" class="section-anchor"></div>
     <section class="section">
@@ -1644,17 +1336,12 @@
         <pre>GridlineBlueprints/
   Source/GridlineBlueprints/
     Public/
-      GridlineBlueprints.h                   <span style="color:#555">// Module interface</span>
-      GridlineBlueprintsSettings.h           <span style="color:#555">// UDeveloperSettings config class</span>
+      GridlineBlueprints.h               <span style="color:#555">// Module interface</span>
+      GridlineBlueprintsSettings.h       <span style="color:#555">// UDeveloperSettings config class</span>
       GridlineBlueprintsConnectionDrawingPolicy.h
-      UK2Node_NamedRerouteDeclaration.h      <span style="color:#555">// Declaration node class</span>
-      UK2Node_NamedRerouteUsage.h            <span style="color:#555">// Usage node class</span>
     Private/
-      GridlineBlueprints.cpp                 <span style="color:#555">// Module startup / factory registration</span>
-      GridlineBlueprintsConnectionDrawingPolicy.cpp
-      GridlineBlueprintsNamedReroutes.cpp    <span style="color:#555">// Slate widgets, node factory, context menus</span>
-      UK2Node_NamedRerouteDeclaration.cpp
-      UK2Node_NamedRerouteUsage.cpp</pre>
+      GridlineBlueprints.cpp             <span style="color:#555">// Module startup / factory registration</span>
+      GridlineBlueprintsConnectionDrawingPolicy.cpp</pre>
       </div>
 
       <h3>Routing Pipeline Phases</h3>
@@ -1683,7 +1370,7 @@
         </div>
         <div class="info-card">
           <div class="card-title">6. Corner Processing</div>
-          <div class="card-body">Converts sharp direction-change points into the configured corner style (Eased, Fillet, or Chamfer) using Bézier control points.</div>
+          <div class="card-body">Converts sharp direction-change points into the configured corner style (Smooth, Circular, or Chamfer) using Bézier control points.</div>
         </div>
         <div class="info-card">
           <div class="card-title">7. Junction Processing</div>
@@ -1697,13 +1384,6 @@
         <code>FEdGraphUtilities</code> on startup. This factory intercepts all Blueprint and AnimGraph schema
         pin connection draw calls and returns a <code>FGridlineBlueprintsConnectionDrawingPolicy</code> instance,
         which inherits from Unreal's <code>FKismetConnectionDrawingPolicy</code>.
-      </p>
-      <p>
-        A second <code>FNamedRerouteNodeFactory</code> is registered via <code>FEdGraphUtilities::RegisterVisualNodeFactory</code>
-        to supply custom Slate widgets for Declaration and Usage nodes. Context menu extensions are registered
-        against three tool menu paths — <code>K2Node_Knot</code>, <code>K2Node_NamedRerouteDeclaration</code>,
-        and <code>K2Node_NamedRerouteUsage</code> — at module startup through the <code>UToolMenus</code> startup
-        callback system.
       </p>
     </section>
 
@@ -1722,11 +1402,11 @@
         </div>
         <div class="info-card">
           <div class="card-title">Engine Version</div>
-          <div class="card-body">Developed and tested against Unreal Engine 5.7. Specific version requirements are listed on the Fab marketplace page.</div>
+          <div class="card-body">Developed and tested against Unreal Engine 5. Specific engine version requirements are listed on the Fab marketplace page.</div>
         </div>
         <div class="info-card">
           <div class="card-title">Platform</div>
-          <div class="card-body">Editor-only. Runs on Win64, Mac, and Linux — any platform the Unreal Engine editor supports. No platform-specific shipping builds are produced or required.</div>
+          <div class="card-body">Editor-only. Runs on any platform that supports the Unreal Engine editor. No platform-specific shipping builds are affected.</div>
         </div>
         <div class="info-card">
           <div class="card-title">Other Plugins</div>
@@ -1750,7 +1430,7 @@
       <p>Ensure the plugin is enabled in <em>Edit → Plugins → Gridline Blueprints</em> and that <strong>Enable Plugin</strong> is checked in Project Settings. A full editor restart after enabling is recommended.</p>
 
       <h3>Can I use this with Animation Blueprints?</h3>
-      <p>Yes. Gridline Blueprints hooks into the base AnimGraph drawing policy.</p>
+      <p>Yes. Gridline Blueprints hooks into the base AnimGraph drawing policy. The <em>Enable for Blueprint Graphs</em> setting covers both Blueprint event/function graphs and AnimGraph editors.</p>
 
       <h3>Wires are overlapping even with Wire Spacing enabled.</h3>
       <p>Wire spacing operates on segments that are detected as parallel. If wires share the same path through complex U-turn geometry, spacing detection may not classify them as parallel. Try increasing Node Avoidance Padding to spread segments further apart before the spacing pass runs.</p>
@@ -1763,18 +1443,6 @@
 
       <h3>Does flow animation impact editor performance?</h3>
       <p>Flow animation forces a redraw on every tick for animated wires. In very large graphs, using <strong>SelectedOnly</strong> as the Animated Wire Types setting limits this to wires near the currently selected node, which substantially reduces overhead.</p>
-
-      <h3>I deleted a Declaration and now my Usage nodes are broken. What do I do?</h3>
-      <p>Deleting a Declaration orphans all its Usage nodes — they will display a black title bar and the label "Invalid Named Reroute." You can either undo the deletion to restore the Declaration, right-click each Usage and choose <strong>Convert to Reroute</strong> to replace them individually with standard Reroute nodes, or simply delete the orphaned Usage nodes.</p>
-
-      <h3>Why does my pasted Declaration have a different name?</h3>
-      <p>Each pasted Declaration is treated as a brand-new, independent node and assigned a fresh GUID. If the pasted name already exists in the Blueprint, a numeric suffix is appended automatically to keep all Declaration names unique. This is intentional — it prevents ambiguity when both the original and the pasted copy are present in the same Blueprint.</p>
-
-      <h3>Can a Named Reroute Declaration be referenced from a different Blueprint?</h3>
-      <p>No. Named Reroutes are scoped to a single Blueprint asset. The GUID resolution searches only the graphs belonging to the Blueprint that owns the Usage node. To share a value between Blueprints, use a standard Blueprint interface, function call, or variable.</p>
-
-      <h3>The "Create Reroute Usage" menu item is not appearing.</h3>
-      <p>The context menu extensions are registered when the plugin loads. If the menu items are missing, verify the plugin is enabled and try restarting the editor. If the issue persists on a Declaration node, check that the node's Details panel shows a valid <code>VariableGuid</code> — a missing GUID indicates a serialization problem with the asset.</p>
     </section>
 
   </div><!-- /content -->
