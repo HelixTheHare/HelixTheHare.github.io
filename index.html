@@ -70,7 +70,7 @@
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--dark); }
   ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gold-bright); }
 
   /* ═══════════════════════════════════════
      SIDEBAR NAV
@@ -106,7 +106,7 @@
     font-family: var(--font-title);
     font-size: 1.05rem;
     font-weight: 700;
-    color: var(--gold-bright);
+    color: var(--gold);
     letter-spacing: 0.08em;
     line-height: 1.2;
   }
@@ -158,7 +158,7 @@
   }
 
   .sidebar a.active {
-    color: var(--gold-bright);
+    color: var(--gold);
     background: var(--gold-glow2);
   }
 
@@ -167,7 +167,7 @@
     position: absolute;
     left: 0; top: 0; bottom: 0;
     width: 2px;
-    background: var(--gold);
+    background: var(--gold-bright);
   }
 
   .sidebar a .nav-icon {
@@ -234,7 +234,7 @@
     font-family: var(--font-display);
     font-size: 0.75rem;
     letter-spacing: 0.4em;
-    color: var(--gold);
+    color: var(--gold-bright);
     margin-bottom: 16px;
     display: flex;
     align-items: center;
@@ -294,15 +294,15 @@
 
   .badge.gold {
     border-color: var(--gold-dim);
-    color: var(--gold);
+    color: var(--gold-bright);
     background: var(--gold-subtle);
   }
 
   .badge-dot {
     width: 6px; height: 6px;
     border-radius: 50%;
-    background: var(--gold);
-    box-shadow: 0 0 6px var(--gold);
+    background: var(--gold-bright);
+    box-shadow: 0 0 6px var(--gold-bright);
   }
 
   /* ═══════════════════════════════════════
@@ -337,7 +337,7 @@
     position: absolute;
     bottom: -1px; left: 0;
     width: 80px; height: 1px;
-    background: var(--gold);
+    background: var(--gold-bright);
   }
 
   .section-icon {
@@ -349,7 +349,7 @@
     font-family: var(--font-title);
     font-size: 1.6rem;
     font-weight: 600;
-    color: #fff;
+    color: var(--text);
     letter-spacing: 0.04em;
   }
 
@@ -357,7 +357,7 @@
     font-family: var(--font-title);
     font-size: 1.05rem;
     font-weight: 600;
-    color: var(--gold-bright);
+    color: var(--gold);
     letter-spacing: 0.06em;
     margin: 32px 0 14px;
   }
@@ -424,7 +424,7 @@
   .setting-name {
     font-family: var(--font-code);
     font-size: 0.78rem;
-    color: var(--gold-bright);
+    color: var(--gold);
     line-height: 1.4;
   }
 
@@ -478,7 +478,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--gold), transparent);
+    background: linear-gradient(90deg, var(--gold-bright), transparent);
   }
 
   .info-card:hover {
@@ -490,7 +490,7 @@
     font-family: var(--font-title);
     font-size: 0.88rem;
     font-weight: 600;
-    color: var(--gold-bright);
+    color: var(--gold);
     letter-spacing: 0.06em;
     margin-bottom: 10px;
     display: flex;
@@ -508,7 +508,7 @@
      CALLOUT BOXES
   ═══════════════════════════════════════ */
   .callout {
-    border-left: 3px solid var(--gold);
+    border-left: 3px solid var(--gold-bright);
     background: var(--gold-subtle);
     padding: 14px 20px;
     border-radius: 0 4px 4px 0;
@@ -530,7 +530,7 @@
     font-family: var(--font-display);
     font-size: 0.65rem;
     letter-spacing: 0.25em;
-    color: var(--gold);
+    color: var(--gold-bright);
     text-transform: uppercase;
     margin-bottom: 6px;
   }
@@ -573,7 +573,7 @@
 
   .code-header::before {
     content: '⬡';
-    color: var(--gold);
+    color: var(--gold-bright);
     font-size: 0.8rem;
   }
 
@@ -633,7 +633,7 @@
   .enum-table td:first-child {
     font-family: var(--font-code);
     font-size: 0.75rem;
-    color: var(--gold-bright);
+    color: var(--gold);
     white-space: nowrap;
   }
 
