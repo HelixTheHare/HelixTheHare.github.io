@@ -36,15 +36,9 @@
     --font-code:    'Source Code Pro', monospace;
   }
 
-  /* ═══════════════════════════════════════
-     RESET & BASE
-  ═══════════════════════════════════════ */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-  }
+  html { scroll-behavior: smooth; font-size: 16px; }
 
   body {
     background: var(--black);
@@ -64,23 +58,15 @@
     opacity: 0.4;
   }
 
-  /* ═══════════════════════════════════════
-     SCROLLBAR
-  ═══════════════════════════════════════ */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--dark); }
   ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--gold-bright); }
 
-  /* ═══════════════════════════════════════
-     SIDEBAR NAV
-  ═══════════════════════════════════════ */
   .sidebar {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 260px;
-    height: 100vh;
+    top: 0; left: 0;
+    width: 260px; height: 100vh;
     background: var(--dark);
     border-right: 1px solid var(--border);
     overflow-y: auto;
@@ -134,10 +120,6 @@
     text-transform: uppercase;
   }
 
-  .nav-section-title:first-of-type {
-    padding-top: 18px;
-  }
-
   .sidebar a {
     display: flex;
     align-items: center;
@@ -152,10 +134,7 @@
     position: relative;
   }
 
-  .sidebar a:hover {
-    color: var(--text);
-    background: var(--gold-glow2);
-  }
+  .sidebar a:hover { color: var(--text); background: var(--gold-glow2); }
 
   .sidebar a.active {
     color: var(--gold);
@@ -170,24 +149,10 @@
     background: var(--gold-bright);
   }
 
-  .sidebar a .nav-icon {
-    font-size: 0.8rem;
-    opacity: 0.7;
-    min-width: 16px;
-    text-align: center;
-  }
+  .sidebar a .nav-icon { font-size: 0.8rem; opacity: 0.7; min-width: 16px; text-align: center; }
 
-  /* ═══════════════════════════════════════
-     MAIN CONTENT
-  ═══════════════════════════════════════ */
-  .main {
-    margin-left: 260px;
-    min-height: 100vh;
-  }
+  .main { margin-left: 260px; min-height: 100vh; }
 
-  /* ═══════════════════════════════════════
-     HERO
-  ═══════════════════════════════════════ */
   .hero {
     position: relative;
     padding: 90px 72px 80px;
@@ -201,18 +166,8 @@
     inset: 0;
     background:
       radial-gradient(ellipse 70% 60% at 60% 50%, rgba(212,160,23,0.07) 0%, transparent 70%),
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 79px,
-        rgba(212,160,23,0.025) 80px
-      ),
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 79px,
-        rgba(212,160,23,0.025) 80px
-      );
+      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,160,23,0.025) 80px),
+      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(212,160,23,0.025) 80px);
   }
 
   .hero::after {
@@ -225,10 +180,7 @@
     opacity: 0.4;
   }
 
-  .hero-content {
-    position: relative;
-    z-index: 1;
-  }
+  .hero-content { position: relative; z-index: 1; }
 
   .hero-eyebrow {
     font-family: var(--font-display);
@@ -241,8 +193,7 @@
     gap: 12px;
   }
 
-  .hero-eyebrow::before,
-  .hero-eyebrow::after {
+  .hero-eyebrow::before, .hero-eyebrow::after {
     content: '';
     height: 1px;
     width: 32px;
@@ -259,9 +210,7 @@
     margin-bottom: 12px;
   }
 
-  .hero h1 span {
-    color: var(--gold);
-  }
+  .hero h1 span { color: var(--gold); }
 
   .hero-sub {
     font-size: 1.05rem;
@@ -272,11 +221,7 @@
     line-height: 1.6;
   }
 
-  .hero-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; }
 
   .badge {
     display: inline-flex;
@@ -292,11 +237,7 @@
     letter-spacing: 0.04em;
   }
 
-  .badge.gold {
-    border-color: var(--gold-dim);
-    color: var(--gold-bright);
-    background: var(--gold-subtle);
-  }
+  .badge.gold { border-color: var(--gold-dim); color: var(--gold-bright); background: var(--gold-subtle); }
 
   .badge-dot {
     width: 6px; height: 6px;
@@ -305,22 +246,11 @@
     box-shadow: 0 0 6px var(--gold-bright);
   }
 
-  /* ═══════════════════════════════════════
-     CONTENT SECTIONS
-  ═══════════════════════════════════════ */
-  .content {
-    padding: 0 72px 80px;
-  }
+  .content { padding: 0 72px 80px; }
 
-  .section {
-    padding-top: 72px;
-    padding-bottom: 16px;
-  }
+  .section { padding-top: 72px; padding-bottom: 16px; }
 
-  .section-anchor {
-    position: relative;
-    top: -20px;
-  }
+  .section-anchor { position: relative; top: -20px; }
 
   .section-header {
     display: flex;
@@ -340,10 +270,7 @@
     background: var(--gold-bright);
   }
 
-  .section-icon {
-    font-size: 1.4rem;
-    opacity: 0.8;
-  }
+  .section-icon { font-size: 1.4rem; opacity: 0.8; }
 
   .section h2 {
     font-family: var(--font-title);
@@ -370,14 +297,7 @@
     max-width: 760px;
   }
 
-  /* ═══════════════════════════════════════
-     SETTINGS TABLE
-  ═══════════════════════════════════════ */
-  .settings-grid {
-    display: grid;
-    gap: 2px;
-    margin: 20px 0;
-  }
+  .settings-grid { display: grid; gap: 2px; margin: 20px 0; }
 
   .setting-row {
     display: grid;
@@ -390,9 +310,7 @@
     transition: border-color 0.2s;
   }
 
-  .setting-row:hover {
-    border-color: var(--gold-dim);
-  }
+  .setting-row:hover { border-color: var(--gold-dim); }
 
   .setting-row.header-row {
     background: var(--gold-subtle);
@@ -407,9 +325,7 @@
     align-items: flex-start;
   }
 
-  .setting-cell:last-child {
-    border-right: none;
-  }
+  .setting-cell:last-child { border-right: none; }
 
   .setting-row.header-row .setting-cell {
     font-family: var(--font-display);
@@ -421,24 +337,9 @@
     border-right-color: var(--gold-dim);
   }
 
-  .setting-name {
-    font-family: var(--font-code);
-    font-size: 0.78rem;
-    color: var(--gold);
-    line-height: 1.4;
-  }
-
-  .setting-type {
-    font-family: var(--font-code);
-    font-size: 0.72rem;
-    color: #7abbe8;
-  }
-
-  .setting-desc {
-    color: var(--text-muted);
-    font-size: 0.82rem;
-    line-height: 1.5;
-  }
+  .setting-name { font-family: var(--font-code); font-size: 0.78rem; color: var(--gold); line-height: 1.4; }
+  .setting-type { font-family: var(--font-code); font-size: 0.72rem; color: #7abbe8; }
+  .setting-desc { color: var(--text-muted); font-size: 0.82rem; line-height: 1.5; }
 
   .default-tag {
     display: inline-block;
@@ -453,9 +354,6 @@
     vertical-align: middle;
   }
 
-  /* ═══════════════════════════════════════
-     INFO CARDS
-  ═══════════════════════════════════════ */
   .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -481,10 +379,7 @@
     background: linear-gradient(90deg, var(--gold-bright), transparent);
   }
 
-  .info-card:hover {
-    border-color: var(--gold-dim);
-    transform: translateY(-1px);
-  }
+  .info-card:hover { border-color: var(--gold-dim); transform: translateY(-1px); }
 
   .card-title {
     font-family: var(--font-title);
@@ -498,15 +393,8 @@
     gap: 8px;
   }
 
-  .card-body {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    line-height: 1.55;
-  }
+  .card-body { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
 
-  /* ═══════════════════════════════════════
-     CALLOUT BOXES
-  ═══════════════════════════════════════ */
   .callout {
     border-left: 3px solid var(--gold-bright);
     background: var(--gold-subtle);
@@ -516,15 +404,8 @@
     max-width: 760px;
   }
 
-  .callout.note {
-    border-color: #4a9eff;
-    background: rgba(74, 158, 255, 0.06);
-  }
-
-  .callout.warning {
-    border-color: #e8823a;
-    background: rgba(232, 130, 58, 0.06);
-  }
+  .callout.note { border-color: #4a9eff; background: rgba(74, 158, 255, 0.06); }
+  .callout.warning { border-color: #e8823a; background: rgba(232, 130, 58, 0.06); }
 
   .callout-label {
     font-family: var(--font-display);
@@ -537,17 +418,8 @@
 
   .callout.note .callout-label { color: #4a9eff; }
   .callout.warning .callout-label { color: #e8823a; }
+  .callout p { font-size: 0.85rem; color: var(--text-muted); margin: 0; max-width: none; }
 
-  .callout p {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin: 0;
-    max-width: none;
-  }
-
-  /* ═══════════════════════════════════════
-     CODE BLOCKS
-  ═══════════════════════════════════════ */
   .code-block {
     background: var(--dark-surface);
     border: 1px solid var(--border);
@@ -571,11 +443,7 @@
     gap: 8px;
   }
 
-  .code-header::before {
-    content: '⬡';
-    color: var(--gold-bright);
-    font-size: 0.8rem;
-  }
+  .code-header::before { content: '⬡'; color: var(--gold-bright); font-size: 0.8rem; }
 
   .code-block pre {
     padding: 18px 20px;
@@ -586,15 +454,6 @@
     color: #c8c8c8;
   }
 
-  .code-block code .kw  { color: #e8823a; }
-  .code-block code .st  { color: #90c060; }
-  .code-block code .cm  { color: #555; font-style: italic; }
-  .code-block code .fn  { color: #7abbe8; }
-  .code-block code .nm  { color: var(--gold); }
-
-  /* ═══════════════════════════════════════
-     ENUM / MENU TABLE
-  ═══════════════════════════════════════ */
   .enum-table {
     border: 1px solid var(--border);
     border-radius: 4px;
@@ -603,10 +462,7 @@
     margin: 16px 0;
   }
 
-  .enum-table table {
-    width: 100%;
-    border-collapse: collapse;
-  }
+  .enum-table table { width: 100%; border-collapse: collapse; }
 
   .enum-table thead th {
     background: var(--gold-subtle);
@@ -629,28 +485,10 @@
 
   .enum-table tbody tr:last-child td { border-bottom: none; }
   .enum-table tbody tr:nth-child(even) { background: var(--dark-surface); }
+  .enum-table td:first-child { font-family: var(--font-code); font-size: 0.75rem; color: var(--gold); white-space: nowrap; }
+  .enum-table td:last-child { color: var(--text-muted); line-height: 1.5; }
 
-  .enum-table td:first-child {
-    font-family: var(--font-code);
-    font-size: 0.75rem;
-    color: var(--gold);
-    white-space: nowrap;
-  }
-
-  .enum-table td:last-child {
-    color: var(--text-muted);
-    line-height: 1.5;
-  }
-
-  /* ═══════════════════════════════════════
-     STEPS LIST
-  ═══════════════════════════════════════ */
-  .steps {
-    counter-reset: step;
-    list-style: none;
-    margin: 20px 0;
-    max-width: 700px;
-  }
+  .steps { counter-reset: step; list-style: none; margin: 20px 0; max-width: 700px; }
 
   .steps li {
     counter-increment: step;
@@ -677,19 +515,9 @@
     margin-top: 2px;
   }
 
-  .steps li p {
-    margin: 0;
-    font-size: 0.88rem;
-  }
+  .steps li p { margin: 0; font-size: 0.88rem; }
+  .steps li strong { color: var(--text); font-weight: 700; }
 
-  .steps li strong {
-    color: var(--text);
-    font-weight: 700;
-  }
-
-  /* ═══════════════════════════════════════
-     SECTION DIVIDER
-  ═══════════════════════════════════════ */
   .section-divider {
     display: flex;
     align-items: center;
@@ -709,9 +537,6 @@
     background: var(--border);
   }
 
-  /* ═══════════════════════════════════════
-     FOOTER
-  ═══════════════════════════════════════ */
   .footer {
     border-top: 1px solid var(--border);
     padding: 32px 72px 40px;
@@ -723,40 +548,19 @@
     margin-top: 40px;
   }
 
-  .footer-brand {
-    font-family: var(--font-title);
-    font-size: 0.85rem;
-    color: var(--gold-dim);
-    letter-spacing: 0.1em;
-  }
+  .footer-brand { font-family: var(--font-title); font-size: 0.85rem; color: var(--gold-dim); letter-spacing: 0.1em; }
+  .footer-note { font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-code); }
 
-  .footer-note {
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    font-family: var(--font-code);
-  }
-
-  /* ═══════════════════════════════════════
-     RESPONSIVE
-  ═══════════════════════════════════════ */
   @media (max-width: 900px) {
     .sidebar { display: none; }
     .main { margin-left: 0; }
     .hero, .content { padding-left: 24px; padding-right: 24px; }
     .footer { padding: 24px; }
-    .setting-row {
-      grid-template-columns: 1fr;
-    }
-    .setting-cell {
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-    }
+    .setting-row { grid-template-columns: 1fr; }
+    .setting-cell { border-right: none; border-bottom: 1px solid var(--border); }
     .setting-cell:last-child { border-bottom: none; }
   }
 
-  /* ═══════════════════════════════════════
-     ANIMATIONS
-  ═══════════════════════════════════════ */
   @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -768,9 +572,6 @@
   .hero-sub { animation: fadeInUp 0.6s ease 0.18s both; }
   .hero-badges { animation: fadeInUp 0.6s ease 0.26s both; }
 
-  /* ═══════════════════════════════════════
-     TAGS
-  ═══════════════════════════════════════ */
   .tag {
     display: inline-block;
     font-family: var(--font-code);
@@ -787,16 +588,7 @@
   .tag.enum   { color: #c080e0; border-color: rgba(192,128,224,0.3); background: rgba(192,128,224,0.07); }
   .tag.string { color: #90c060; border-color: rgba(144,192,96,0.3); background: rgba(144,192,96,0.07); }
 
-  /* ═══════════════════════════════════════
-     NODE DIAGRAM (Named Reroute illustration)
-  ═══════════════════════════════════════ */
-  .node-diagram {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    margin: 24px 0;
-    flex-wrap: wrap;
-  }
+  .node-diagram { display: flex; align-items: center; gap: 32px; margin: 24px 0; flex-wrap: wrap; }
 
   .node-box {
     background: var(--card);
@@ -821,9 +613,7 @@
   .node-title-bar.decl { background: rgba(0, 80, 255, 0.25); color: #9ab8ff; border-color: rgba(0,80,255,0.3); }
   .node-title-bar.usage { background: rgba(0, 80, 255, 0.25); color: #9ab8ff; border-color: rgba(0,80,255,0.3); }
 
-  .node-pins {
-    padding: 10px 0;
-  }
+  .node-pins { padding: 10px 0; }
 
   .node-pin {
     display: flex;
@@ -846,7 +636,6 @@
   }
 
   .pin-dot.connected { background: #8090a0; }
-  .pin-dot.exec { border-color: #fff; background: #fff; }
 
   .diagram-arrow {
     display: flex;
@@ -868,9 +657,6 @@
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     SIDEBAR
-══════════════════════════════════════ -->
 <nav class="sidebar">
   <div class="sidebar-logo">
     <div class="plugin-name">Gridline Blueprints</div>
@@ -899,12 +685,8 @@
   <a href="#faq"><span class="nav-icon">?</span> FAQ</a>
 </nav>
 
-<!-- ══════════════════════════════════════
-     MAIN CONTENT
-══════════════════════════════════════ -->
 <main class="main">
 
-  <!-- HERO -->
   <header class="hero">
     <div class="hero-content">
       <div class="hero-eyebrow">Plugin Documentation</div>
@@ -1071,7 +853,7 @@
         <h2>Routing Settings</h2>
       </div>
 
-      <p>Controls how wire paths are calculated — where bends occur, how far pins extend, and when to fall back to spline routing for very short connections.</p>
+      <p>Controls how wire paths are calculated — where bends occur, how far pin stubs extend, and how short wires are handled when orthogonal routing would produce an awkward result.</p>
 
       <div class="settings-grid">
         <div class="setting-row header-row">
@@ -1087,17 +869,22 @@
         <div class="setting-row">
           <div class="setting-cell"><span class="setting-name">Pin Length</span></div>
           <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">Length in pixels of the horizontal stub that extends from the anchor pin before the wire turns. Increasing this creates more breathing room around pins. Range: 14–64. <span class="default-tag">default: 28</span></span></div>
+          <div class="setting-cell"><span class="setting-desc">Length in pixels of the horizontal stub that extends from the anchor pin before the wire turns. Increasing this creates more breathing room around pins. Corner Size is clamped to never exceed this value. Range: 14–64. <span class="default-tag">default: 28</span></span></div>
         </div>
         <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Spline Threshold</span></div>
+          <div class="setting-cell"><span class="setting-name">Short Wire Threshold</span></div>
           <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">If a wire's straight-line distance is shorter than this value (in pixels), it falls back to standard spline routing instead of gridline routing. Set to <strong>0</strong> to always use orthogonal routing. Range: 0–500. <span class="default-tag">default: 40</span></span></div>
+          <div class="setting-cell"><span class="setting-desc">If a wire's straight-line distance is shorter than this value (in pixels), it uses the Short Wire Style instead of gridline routing. Short connections at right-angles can look awkward with hard corners, so this fallback produces a more natural result. Set to <strong>0</strong> to always use orthogonal routing. Range: 0–500. <span class="default-tag">default: 40</span></span></div>
         </div>
         <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Spline Pin Length</span></div>
+          <div class="setting-cell"><span class="setting-name">Short Wire Style</span></div>
+          <div class="setting-cell"><span class="tag enum">enum</span></div>
+          <div class="setting-cell"><span class="setting-desc">Routing style applied to wires that fall below Short Wire Threshold. <strong>Spline</strong> uses a standard curved spline; <strong>Straight</strong> draws a single direct line between the two pins. Only applies when Short Wire Threshold is greater than 0. <span class="default-tag">default: Spline</span></span></div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-cell"><span class="setting-name">Short Wire Pin Length</span></div>
           <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">Pin stub length used specifically when Spline Threshold fallback is active. Only applies when Spline Threshold is greater than 0. Range: 0–64. <span class="default-tag">default: 14</span></span></div>
+          <div class="setting-cell"><span class="setting-desc">Pin stub length used when the Short Wire fallback is active. Typically set shorter than the main Pin Length since short wires need less visual breathing room. Only applies when Short Wire Threshold is greater than 0. Range: 0–64. <span class="default-tag">default: 14</span></span></div>
         </div>
       </div>
 
@@ -1108,6 +895,17 @@
           <tbody>
             <tr><td>Source</td><td>The horizontal segment runs from the output pin. The vertical drop happens near the source node, then a long horizontal run reaches the destination. Good for left-heavy graphs.</td></tr>
             <tr><td>Destination</td><td>The long horizontal segment runs toward the input pin first. The vertical drop happens near the destination node. Generally produces more balanced layouts. <em>(Default)</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Short Wire Style Values</h3>
+      <div class="enum-table">
+        <table>
+          <thead><tr><th>Value</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Spline</td><td>Uses a standard Bézier spline between the two pins — the same curved style as Unreal's default wire renderer. Produces a natural, smooth look for tight connections. <em>(Default)</em></td></tr>
+            <tr><td>Straight</td><td>Draws a single straight line directly between the output and input pins. Minimal and precise; best suited for adjacent nodes where there is no visual ambiguity.</td></tr>
           </tbody>
         </table>
       </div>
@@ -1765,6 +1563,12 @@
       <h3>Does flow animation impact editor performance?</h3>
       <p>Flow animation forces a redraw on every tick for animated wires. In very large graphs, using <strong>SelectedOnly</strong> as the Animated Wire Types setting limits this to wires near the currently selected node, which substantially reduces overhead.</p>
 
+      <h3>Some short wires still use splines even with Short Wire Threshold set to 0.</h3>
+      <p>Check that the <strong>Short Wire Threshold</strong> is set to exactly <strong>0</strong> and not a small positive value. At 0, orthogonal routing is applied to all wires regardless of length. If a wire still appears as a spline, verify that the plugin is enabled for the current graph type in General Settings.</p>
+
+      <h3>What is the difference between Short Wire Style: Spline and Straight?</h3>
+      <p><strong>Spline</strong> uses Unreal's standard curved wire renderer — the same look as the default Blueprint wires — and is the better choice when you want a smooth, natural appearance for short connections. <strong>Straight</strong> draws a single direct line between the two pins with no curve, which is cleaner and more precise but can look abrupt if pin positions are offset vertically.</p>
+
       <h3>I deleted a Declaration and now my Usage nodes are broken. What do I do?</h3>
       <p>Deleting a Declaration orphans all its Usage nodes — they will display a black title bar and the label "Invalid Named Reroute." You can either undo the deletion to restore the Declaration, right-click each Usage and choose <strong>Convert to Reroute</strong> to replace them individually with standard Reroute nodes, or simply delete the orphaned Usage nodes.</p>
 
@@ -1788,7 +1592,6 @@
 </main>
 
 <script>
-  // Active nav link tracking
   const sections = document.querySelectorAll('.section-anchor');
   const navLinks = document.querySelectorAll('.sidebar a');
 
