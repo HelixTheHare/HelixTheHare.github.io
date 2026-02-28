@@ -1548,9 +1548,12 @@
       <h3>My wires look the same after installing. What's wrong?</h3>
       <p>Ensure the plugin is enabled in <em>Edit → Plugins → Gridline Blueprints</em> and that <strong>Enable Plugin</strong> is checked in Project Settings. A full editor restart after enabling is recommended.</p>
 
-      <h3>Can I use this with Animation Blueprints?</h3>
+      <h3>Does this work with Animation Blueprints?</h3>
       <p>Yes. Gridline Blueprints hooks into the base AnimGraph drawing policy.</p>
-
+      
+      <h3>Does this work with Blueprint Assist?</h3>
+      <p>Yes, but if wires seems to route incorrectly, then you might need to increase Blueprint Parameter Padding in Blueprint Assist: Go to Edit → Editor Preferences → Blueprint Assist Formatting → Blueprint Formatting → Blueprint Parameter Padding. If there are still issues then also increase the Short Wire Threshold in Gridline Blueprints: Go to Editor Preferences → Plugins → Gridline Blueprints → Routing → Short Wire Threshold</p>
+      
       <h3>Wires are overlapping even with Wire Spacing enabled.</h3>
       <p>Wire spacing operates on segments that are detected as parallel. If wires share the same path through complex U-turn geometry, spacing detection may not classify them as parallel. Try increasing Node Avoidance Padding to spread segments further apart before the spacing pass runs.</p>
 
@@ -1562,24 +1565,15 @@
 
       <h3>Does flow animation impact editor performance?</h3>
       <p>Flow animation forces a redraw on every tick for animated wires. In very large graphs, using <strong>SelectedOnly</strong> as the Animated Wire Types setting limits this to wires near the currently selected node, which substantially reduces overhead.</p>
-
-      <h3>Some short wires still use splines even with Short Wire Threshold set to 0.</h3>
-      <p>Check that the <strong>Short Wire Threshold</strong> is set to exactly <strong>0</strong> and not a small positive value. At 0, orthogonal routing is applied to all wires regardless of length. If a wire still appears as a spline, verify that the plugin is enabled for the current graph type in General Settings.</p>
-
-      <h3>What is the difference between Short Wire Style: Spline and Straight?</h3>
-      <p><strong>Spline</strong> uses Unreal's standard curved wire renderer — the same look as the default Blueprint wires — and is the better choice when you want a smooth, natural appearance for short connections. <strong>Straight</strong> draws a single direct line between the two pins with no curve, which is cleaner and more precise but can look abrupt if pin positions are offset vertically.</p>
-
+      
       <h3>I deleted a Declaration and now my Usage nodes are broken. What do I do?</h3>
       <p>Deleting a Declaration orphans all its Usage nodes — they will display a black title bar and the label "Invalid Named Reroute." You can either undo the deletion to restore the Declaration, right-click each Usage and choose <strong>Convert to Reroute</strong> to replace them individually with standard Reroute nodes, or simply delete the orphaned Usage nodes.</p>
-
-      <h3>Why does my pasted Declaration have a different name?</h3>
-      <p>Each pasted Declaration is treated as a brand-new, independent node and assigned a fresh GUID. If the pasted name already exists in the Blueprint, a numeric suffix is appended automatically to keep all Declaration names unique. This is intentional — it prevents ambiguity when both the original and the pasted copy are present in the same Blueprint.</p>
 
       <h3>Can a Named Reroute Declaration be referenced from a different Blueprint?</h3>
       <p>No. Named Reroutes are scoped to a single Blueprint asset. The GUID resolution searches only the graphs belonging to the Blueprint that owns the Usage node. To share a value between Blueprints, use a standard Blueprint interface, function call, or variable.</p>
 
-      <h3>The "Create Reroute Usage" menu item is not appearing.</h3>
-      <p>The context menu extensions are registered when the plugin loads. If the menu items are missing, verify the plugin is enabled and try restarting the editor. If the issue persists on a Declaration node, check that the node's Details panel shows a valid <code>VariableGuid</code> — a missing GUID indicates a serialization problem with the asset.</p>
+      <h3>Can I use Named Reroutes across function graphs and the event graph in the same Blueprint?</h3>
+      <p>Yes. Usage nodes search all graphs in the owning Blueprint when resolving their Declaration. A Declaration in the event graph can be referenced by a Usage in a function graph and vice versa.</p>
     </section>
 
   </div><!-- /content -->
