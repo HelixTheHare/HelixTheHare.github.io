@@ -1552,7 +1552,10 @@
       <p>Yes. Gridline Blueprints hooks into the base AnimGraph drawing policy.</p>
       
       <h3>Does this work with Blueprint Assist?</h3>
-      <p>Yes, but if wires seems to route incorrectly, then you might need to increase Blueprint Parameter Padding in Blueprint Assist: Go to Edit → Editor Preferences → Blueprint Assist Formatting → Blueprint Formatting → Blueprint Parameter Padding. If there are still issues then also increase the Short Wire Threshold in Gridline Blueprints: Go to Editor Preferences → Plugins → Gridline Blueprints → Routing → Short Wire Threshold</p>
+      <p>Yes, but Gridline Blueprints requires some space to function properly so if wires seems to route incorrectly, then do the following:
+
+Increase Blueprint Parameter Padding in Blueprint Assist: Go to Edit → Editor Preferences → Blueprint Assist Formatting → Blueprint Formatting → Blueprint Parameter Padding.
+Increase the Short Wire Threshold in Gridline Blueprints: Go to Editor Preferences → Plugins → Gridline Blueprints → Routing → Short Wire Threshold</p>
       
       <h3>Wires are overlapping even with Wire Spacing enabled.</h3>
       <p>Wire spacing operates on segments that are detected as parallel. If wires share the same path through complex U-turn geometry, spacing detection may not classify them as parallel. Try increasing Node Avoidance Padding to spread segments further apart before the spacing pass runs.</p>
