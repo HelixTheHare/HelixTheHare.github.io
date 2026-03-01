@@ -1,1637 +1,789 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Gridline Blueprints — Documentation</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;600;700&family=Source+Code+Pro:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
 <style>
-  /* ═══════════════════════════════════════
-     ROOT VARIABLES
-  ═══════════════════════════════════════ */
-  :root {
-    --black:        #121212;
-    --dark:         #1a1a1a;
-    --dark-surface: #1f1f1f;
-    --card:         #242424;
-    --card-hover:   #2a2a2a;
-    --border:       #333333;
-    --border-light: #3c3c3c;
-
-    --gold:         #ffbf00;
-    --gold-bright:  #ffd700;
-    --gold-dim:     #7f5f00;
-    --gold-subtle:  #1f1700;
-    --gold-glow:    rgba(255, 191, 0, 0.15);
-    --gold-glow2:   rgba(255, 191, 0, 0.06);
-
-    --text:         #E0E0E0;
-    --text-muted:   #8a8a8a;
-    --text-dim:     #4a4a4a;
-
-    --font-title:   'Cinzel', serif;
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-body:    'Lato', sans-serif;
-    --font-code:    'Source Code Pro', monospace;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; font-size: 16px; }
-
-  body {
-    background: var(--black);
-    color: var(--text);
-    font-family: var(--font-body);
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--dark); }
-  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--gold-bright); }
-
-  .sidebar {
-    position: fixed;
-    top: 0; left: 0;
-    width: 260px; height: 100vh;
-    background: var(--dark);
-    border-right: 1px solid var(--border);
-    overflow-y: auto;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sidebar::after {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 1px; height: 100%;
-    background: linear-gradient(to bottom, transparent, var(--gold-dim), transparent);
-  }
-
-  .sidebar-logo {
-    padding: 28px 24px 20px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .sidebar-logo .plugin-name {
-    font-family: var(--font-title);
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--gold);
-    letter-spacing: 0.08em;
-    line-height: 1.2;
-  }
-
-  .sidebar-logo .version-tag {
-    display: inline-block;
-    margin-top: 6px;
-    font-family: var(--font-code);
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    background: var(--gold-subtle);
-    border: 1px solid var(--gold-dim);
-    padding: 2px 8px;
-    border-radius: 2px;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-  }
-
-  .nav-section-title {
-    padding: 20px 24px 6px;
-    font-family: var(--font-display);
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-  }
-
-  .sidebar a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 24px;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.82rem;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    transition: color 0.2s, background 0.2s;
-    position: relative;
-  }
-
-  .sidebar a:hover { color: var(--text); background: var(--gold-glow2); }
-
-  .sidebar a.active {
-    color: var(--gold);
-    background: var(--gold-glow2);
-  }
-
-  .sidebar a.active::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 2px;
-    background: var(--gold-bright);
-  }
-
-  .sidebar a .nav-icon { font-size: 0.8rem; opacity: 0.7; min-width: 16px; text-align: center; }
-
-  .main { margin-left: 260px; min-height: 100vh; }
-
-  .hero {
-    position: relative;
-    padding: 90px 72px 80px;
-    overflow: hidden;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 70% 60% at 60% 50%, rgba(212,160,23,0.07) 0%, transparent 70%),
-      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,160,23,0.025) 80px),
-      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(212,160,23,0.025) 80px);
-  }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle, rgba(212,160,23,0.18) 1px, transparent 1px);
-    background-size: 80px 80px;
-    background-position: 40px 40px;
-    opacity: 0.4;
-  }
-
-  .hero-content { position: relative; z-index: 1; }
-
-  .hero-eyebrow {
-    font-family: var(--font-display);
-    font-size: 0.75rem;
-    letter-spacing: 0.4em;
-    color: var(--gold-bright);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .hero-eyebrow::before, .hero-eyebrow::after {
-    content: '';
-    height: 1px;
-    width: 32px;
-    background: var(--gold-dim);
-  }
-
-  .hero h1 {
-    font-family: var(--font-title);
-    font-size: clamp(2.4rem, 4vw, 3.8rem);
-    font-weight: 700;
-    line-height: 1.05;
-    color: var(--text);
-    letter-spacing: 0.02em;
-    margin-bottom: 12px;
-  }
-
-  .hero h1 span { color: var(--gold); }
-
-  .hero-sub {
-    font-size: 1.05rem;
-    color: var(--text-muted);
-    max-width: 560px;
-    margin-bottom: 36px;
-    font-weight: 300;
-    line-height: 1.6;
-  }
-
-  .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; }
-
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    background: var(--dark-surface);
-    border: 1px solid var(--border-light);
-    padding: 7px 14px;
-    border-radius: 3px;
-    font-family: var(--font-code);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-  }
-
-  .badge.gold { border-color: var(--gold-dim); color: var(--gold-bright); background: var(--gold-subtle); }
-
-  .badge-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--gold-bright);
-    box-shadow: 0 0 6px var(--gold-bright);
-  }
-
-  .content { padding: 0 72px 80px; }
-
-  .section { padding-top: 72px; padding-bottom: 16px; }
-
-  .section-anchor { position: relative; top: -20px; }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 32px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-  }
-
-  .section-header::after {
-    content: '';
-    position: absolute;
-    bottom: -1px; left: 0;
-    width: 80px; height: 1px;
-    background: var(--gold-bright);
-  }
-
-  .section-icon { font-size: 1.4rem; opacity: 0.8; }
-
-  .section h2 {
-    font-family: var(--font-title);
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: 0.04em;
-  }
-
-  h3 {
-    font-family: var(--font-title);
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 0.06em;
-    margin: 32px 0 14px;
-  }
-
-  p {
-    color: var(--text);
-    font-size: 0.92rem;
-    margin-bottom: 14px;
-    font-weight: 300;
-    max-width: 760px;
-  }
-
-  .settings-grid { display: grid; gap: 2px; margin: 20px 0; }
-
-  .setting-row {
-    display: grid;
-    grid-template-columns: 220px 100px 1fr;
-    gap: 0;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
-  .setting-row:hover { border-color: var(--gold-dim); }
-
-  .setting-row.header-row {
-    background: var(--gold-subtle);
-    border-color: var(--gold-dim);
-  }
-
-  .setting-cell {
-    padding: 12px 16px;
-    font-size: 0.82rem;
-    border-right: 1px solid var(--border);
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .setting-cell:last-child { border-right: none; }
-
-  .setting-row.header-row .setting-cell {
-    font-family: var(--font-display);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    text-transform: uppercase;
-    padding: 8px 16px;
-    border-right-color: var(--gold-dim);
-  }
-
-  .setting-name { font-family: var(--font-code); font-size: 0.78rem; color: var(--gold); line-height: 1.4; }
-  .setting-type { font-family: var(--font-code); font-size: 0.72rem; color: #7abbe8; }
-  .setting-desc { color: var(--text-muted); font-size: 0.82rem; line-height: 1.5; }
-
-  .default-tag {
-    display: inline-block;
-    font-family: var(--font-code);
-    font-size: 0.65rem;
-    color: var(--gold-dim);
-    background: var(--gold-subtle);
-    border: 1px solid var(--gold-dim);
-    padding: 1px 6px;
-    border-radius: 2px;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
-
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-    margin: 24px 0;
-  }
-
-  .info-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 22px 22px 20px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.25s, transform 0.2s;
-  }
-
-  .info-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--gold-bright), transparent);
-  }
-
-  .info-card:hover { border-color: var(--gold-dim); transform: translateY(-1px); }
-
-  .card-title {
-    font-family: var(--font-title);
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 0.06em;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .card-body { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
-
-  .callout {
-    border-left: 3px solid var(--gold-bright);
-    background: var(--gold-subtle);
-    padding: 14px 20px;
-    border-radius: 0 4px 4px 0;
-    margin: 20px 0;
-    max-width: 760px;
-  }
-
-  .callout.note { border-color: #4a9eff; background: rgba(74, 158, 255, 0.06); }
-  .callout.warning { border-color: #e8823a; background: rgba(232, 130, 58, 0.06); }
-
-  .callout-label {
-    font-family: var(--font-display);
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    color: var(--gold-bright);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .callout.note .callout-label { color: #4a9eff; }
-  .callout.warning .callout-label { color: #e8823a; }
-  .callout p { font-size: 0.85rem; color: var(--text-muted); margin: 0; max-width: none; }
-
-  .code-block {
-    background: var(--dark-surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    margin: 16px 0;
-    overflow: hidden;
-    max-width: 760px;
-  }
-
-  .code-header {
-    background: var(--card);
-    padding: 8px 16px;
-    border-bottom: 1px solid var(--border);
-    font-family: var(--font-code);
-    font-size: 0.65rem;
-    color: var(--gold-dim);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .code-header::before { content: '⬡'; color: var(--gold-bright); font-size: 0.8rem; }
-
-  .code-block pre {
-    padding: 18px 20px;
-    overflow-x: auto;
-    font-family: var(--font-code);
-    font-size: 0.78rem;
-    line-height: 1.65;
-    color: #c8c8c8;
-  }
-
-  .enum-table {
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    max-width: 700px;
-    margin: 16px 0;
-  }
-
-  .enum-table table { width: 100%; border-collapse: collapse; }
-
-  .enum-table thead th {
-    background: var(--gold-subtle);
-    padding: 8px 16px;
-    text-align: left;
-    font-family: var(--font-display);
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--gold-dim);
-  }
-
-  .enum-table tbody td {
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.82rem;
-    vertical-align: top;
-  }
-
-  .enum-table tbody tr:last-child td { border-bottom: none; }
-  .enum-table tbody tr:nth-child(even) { background: var(--dark-surface); }
-  .enum-table td:first-child { font-family: var(--font-code); font-size: 0.75rem; color: var(--gold); white-space: nowrap; }
-  .enum-table td:last-child { color: var(--text-muted); line-height: 1.5; }
-
-  .steps { counter-reset: step; list-style: none; margin: 20px 0; max-width: 700px; }
-
-  .steps li {
-    counter-increment: step;
-    display: flex;
-    gap: 18px;
-    margin-bottom: 18px;
-    align-items: flex-start;
-  }
-
-  .steps li::before {
-    content: counter(step);
-    min-width: 30px; height: 30px;
-    background: var(--gold-subtle);
-    border: 1px solid var(--gold-dim);
-    color: var(--gold);
-    font-family: var(--font-display);
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 2px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .steps li p { margin: 0; font-size: 0.88rem; }
-  .steps li strong { color: var(--text); font-weight: 700; }
-
-  .section-divider {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 60px 0 0;
-    color: var(--text-dim);
-    font-family: var(--font-display);
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-  }
-
-  .section-divider::before, .section-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .footer {
-    border-top: 1px solid var(--border);
-    padding: 32px 72px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 40px;
-  }
-
-  .footer-brand { font-family: var(--font-title); font-size: 0.85rem; color: var(--gold-dim); letter-spacing: 0.1em; }
-  .footer-note { font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-code); }
-
-  @media (max-width: 900px) {
-    .sidebar { display: none; }
-    .main { margin-left: 0; }
-    .hero, .content { padding-left: 24px; padding-right: 24px; }
-    .footer { padding: 24px; }
-    .setting-row { grid-template-columns: 1fr; }
-    .setting-cell { border-right: none; border-bottom: 1px solid var(--border); }
-    .setting-cell:last-child { border-bottom: none; }
-  }
-
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-content { animation: fadeInUp 0.6s ease both; }
-  .hero-eyebrow { animation: fadeInUp 0.6s ease 0.05s both; }
-  .hero h1 { animation: fadeInUp 0.6s ease 0.1s both; }
-  .hero-sub { animation: fadeInUp 0.6s ease 0.18s both; }
-  .hero-badges { animation: fadeInUp 0.6s ease 0.26s both; }
-
-  .tag {
-    display: inline-block;
-    font-family: var(--font-code);
-    font-size: 0.68rem;
-    padding: 2px 8px;
-    border-radius: 2px;
-    border: 1px solid;
-    vertical-align: middle;
-  }
-
-  .tag.bool   { color: #7abbe8; border-color: rgba(122,187,232,0.3); background: rgba(122,187,232,0.07); }
-  .tag.int    { color: #90c060; border-color: rgba(144,192,96,0.3); background: rgba(144,192,96,0.07); }
-  .tag.float  { color: #c0a060; border-color: rgba(192,160,96,0.3); background: rgba(192,160,96,0.07); }
-  .tag.enum   { color: #c080e0; border-color: rgba(192,128,224,0.3); background: rgba(192,128,224,0.07); }
-  .tag.string { color: #90c060; border-color: rgba(144,192,96,0.3); background: rgba(144,192,96,0.07); }
-
-  .node-diagram { display: flex; align-items: center; gap: 32px; margin: 24px 0; flex-wrap: wrap; }
-
-  .node-box {
-    background: var(--card);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    overflow: hidden;
-    min-width: 160px;
-    transition: border-color 0.2s;
-  }
-
-  .node-box:hover { border-color: var(--gold-dim); }
-
-  .node-title-bar {
-    padding: 8px 14px;
-    font-family: var(--font-title);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .node-title-bar.decl { background: rgba(0, 80, 255, 0.25); color: #9ab8ff; border-color: rgba(0,80,255,0.3); }
-  .node-title-bar.usage { background: rgba(0, 80, 255, 0.25); color: #9ab8ff; border-color: rgba(0,80,255,0.3); }
-
-  .node-pins { padding: 10px 0; }
-
-  .node-pin {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 14px;
-    font-family: var(--font-code);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-  }
-
-  .node-pin.output { justify-content: flex-end; }
-
-  .pin-dot {
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    border: 2px solid #8090a0;
-    background: transparent;
-    flex-shrink: 0;
-  }
-
-  .pin-dot.connected { background: #8090a0; }
-
-  .diagram-arrow {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    color: var(--gold-dim);
-    font-size: 1.5rem;
-  }
-
-  .diagram-arrow span {
-    font-family: var(--font-code);
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    color: var(--text-dim);
-    white-space: nowrap;
-  }
+:root{
+  --bg:#121212;
+  --bg2:#1a1a1a;
+  --bg3:#222;
+  --gold:#ffbf00;
+  --gold-bright:#ffd700;
+  --gold-dim:#7f5f00;
+  --gold-subtle:#1f1700;
+  --text:#e0e0e0;
+  --text-muted:#999;
+  --border:#2a2a2a;
+  --font-title:'Chakra Petch',sans-serif;
+  --font-body:'Josefin Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.7}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:3px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(18,18,18,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--gold-dim);padding:0 2rem}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:0;height:56px}
+.nav-logo{font-family:var(--font-title);font-size:1.05rem;font-weight:700;color:var(--gold);letter-spacing:.06em;white-space:nowrap;margin-right:2rem}
+.nav-links{display:flex;gap:0;flex-wrap:wrap;flex:1}
+.nav-links a{font-family:var(--font-body);font-size:.78rem;font-weight:600;color:var(--text-muted);text-decoration:none;padding:.4rem .7rem;letter-spacing:.04em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+
+/* ── HERO ── */
+.hero{padding:140px 2rem 80px;text-align:center;background:radial-gradient(ellipse at 50% 0%,#2a1f00 0%,var(--bg) 65%)}
+.hero-badge{display:inline-block;font-family:var(--font-title);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dim);border:1px solid var(--gold-dim);border-radius:2px;padding:.3rem .8rem;margin-bottom:1.5rem}
+.hero h1{font-family:var(--font-title);font-size:clamp(2.4rem,6vw,4.5rem);font-weight:700;color:var(--gold-bright);letter-spacing:.04em;line-height:1.1;margin-bottom:1rem}
+.hero h1 span{color:var(--text)}
+.hero p{font-size:1.1rem;color:var(--text-muted);max-width:620px;margin:0 auto 2.5rem;font-weight:300}
+.hero-pills{display:flex;justify-content:center;flex-wrap:wrap;gap:.6rem;margin-bottom:3rem}
+.pill{background:var(--gold-subtle);border:1px solid var(--gold-dim);color:var(--gold);font-family:var(--font-title);font-size:.72rem;letter-spacing:.1em;padding:.35rem .9rem;border-radius:2px}
+.hero-divider{width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto}
+
+/* ── LAYOUT ── */
+.container{max-width:1100px;margin:0 auto;padding:0 2rem}
+section{padding:80px 0}
+section+section{border-top:1px solid var(--border)}
+
+/* ── SECTION HEADERS ── */
+.sec-label{font-family:var(--font-title);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:.6rem}
+.sec-title{font-family:var(--font-title);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:var(--gold);margin-bottom:.8rem}
+.sec-sub{font-size:1rem;color:var(--text-muted);max-width:680px;margin-bottom:3rem;font-weight:300}
+
+/* ── CARDS ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:1.6rem;transition:border-color .25s,transform .2s}
+.card:hover{border-color:var(--gold-dim);transform:translateY(-2px)}
+.card-icon{font-size:1.6rem;margin-bottom:.8rem}
+.card h3{font-family:var(--font-title);font-size:.95rem;font-weight:600;color:var(--gold);letter-spacing:.05em;margin-bottom:.5rem}
+.card p{font-size:.9rem;color:var(--text-muted);line-height:1.65}
+
+/* ── STEPS ── */
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:56px 1fr;gap:1.5rem;padding:2rem 0;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none}
+.step-num{width:44px;height:44px;background:var(--gold-subtle);border:2px solid var(--gold-dim);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--font-title);font-size:1rem;font-weight:700;color:var(--gold);flex-shrink:0}
+.step h3{font-family:var(--font-title);font-size:1rem;color:var(--gold-bright);margin-bottom:.5rem}
+.step p,.step ul{font-size:.92rem;color:var(--text-muted)}
+.step ul{padding-left:1.2rem;margin-top:.4rem}
+.step li{margin-bottom:.3rem}
+
+/* ── CODE BLOCKS ── */
+.code{background:#0d0d0d;border:1px solid var(--border);border-left:3px solid var(--gold-dim);border-radius:3px;padding:1rem 1.2rem;font-family:'Courier New',monospace;font-size:.85rem;color:#c8b97a;overflow-x:auto;margin:.8rem 0}
+.code .cm{color:#555}
+.code .kw{color:var(--gold)}
+.code .st{color:#b89060}
+
+/* ── FEATURE SECTIONS ── */
+.feature-block{margin-bottom:3.5rem}
+.feature-block h3{font-family:var(--font-title);font-size:1.25rem;font-weight:600;color:var(--gold-bright);border-left:3px solid var(--gold);padding-left:.9rem;margin-bottom:1rem}
+.feature-block p{color:var(--text-muted);font-size:.95rem;margin-bottom:.8rem}
+.feature-block ul{padding-left:1.4rem;color:var(--text-muted);font-size:.92rem}
+.feature-block li{margin-bottom:.45rem}
+.feature-block li strong{color:var(--text)}
+
+/* ── SETTING TABLES ── */
+.stbl{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.875rem}
+.stbl th{font-family:var(--font-title);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim);padding:.6rem 1rem;text-align:left;border-bottom:2px solid var(--gold-dim);background:var(--gold-subtle)}
+.stbl td{padding:.65rem 1rem;border-bottom:1px solid var(--border);color:var(--text-muted);vertical-align:top}
+.stbl tr:hover td{background:rgba(255,191,0,.03)}
+.stbl td:first-child{color:var(--text);font-weight:600;white-space:nowrap}
+.stbl td:nth-child(2){color:var(--gold);font-family:'Courier New',monospace;font-size:.82rem}
+
+/* ── ENUM TAGS ── */
+.enum-tag{display:inline-block;background:var(--gold-subtle);border:1px solid var(--gold-dim);color:var(--gold);font-family:'Courier New',monospace;font-size:.76rem;padding:.15rem .5rem;border-radius:2px;margin:.1rem}
+
+/* ── CALLOUT ── */
+.callout{background:var(--gold-subtle);border:1px solid var(--gold-dim);border-left:4px solid var(--gold);border-radius:3px;padding:1rem 1.2rem;margin:1rem 0;font-size:.9rem;color:var(--text)}
+.callout strong{color:var(--gold)}
+.callout.warn{border-left-color:#ff6b35;background:#1a0f0a;border-color:#5a2a15}
+.callout.warn strong{color:#ff9060}
+
+/* ── ARCH DIAGRAM ── */
+.arch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin:1.5rem 0}
+.arch-cell{background:var(--bg2);padding:1.2rem;border:1px solid var(--border)}
+.arch-cell h4{font-family:var(--font-title);font-size:.8rem;letter-spacing:.08em;color:var(--gold);margin-bottom:.5rem;text-transform:uppercase}
+.arch-cell p{font-size:.82rem;color:var(--text-muted)}
+.arch-pipeline{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin:1.5rem 0}
+.arch-phase{background:var(--gold-subtle);border:1px solid var(--gold-dim);color:var(--gold);font-family:var(--font-title);font-size:.72rem;letter-spacing:.06em;padding:.4rem .8rem;border-radius:2px}
+.arch-arrow{color:var(--gold-dim);font-size:1.1rem}
+
+/* ── COMPAT TABLE ── */
+.compat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+.compat-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:1.2rem}
+.compat-card h4{font-family:var(--font-title);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:.8rem}
+.compat-row{display:flex;justify-content:space-between;align-items:center;padding:.35rem 0;border-bottom:1px solid var(--border);font-size:.875rem}
+.compat-row:last-child{border-bottom:none}
+.compat-row span:first-child{color:var(--text-muted)}
+.badge-yes{color:#6fcf97;font-family:var(--font-title);font-size:.7rem;letter-spacing:.06em}
+.badge-no{color:#eb5757;font-family:var(--font-title);font-size:.7rem}
+.badge-partial{color:var(--gold);font-family:var(--font-title);font-size:.7rem;letter-spacing:.04em}
+
+/* ── FAQ ── */
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:1.2rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.faq-q span{font-family:var(--font-title);font-size:.95rem;color:var(--text);transition:color .2s}
+.faq-q:hover span{color:var(--gold)}
+.faq-icon{width:22px;height:22px;border:1px solid var(--gold-dim);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--gold-dim);font-size:1rem;transition:all .2s}
+.faq-q.open .faq-icon{border-color:var(--gold);color:var(--gold);transform:rotate(45deg)}
+.faq-a{display:none;padding-bottom:1.2rem;color:var(--text-muted);font-size:.92rem;line-height:1.75;padding-right:2.5rem}
+.faq-a ul{padding-left:1.3rem;margin-top:.4rem}
+.faq-a li{margin-bottom:.35rem}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center}
+footer p{font-size:.82rem;color:var(--text-muted)}
+footer a{color:var(--gold-dim);text-decoration:none}
+footer a:hover{color:var(--gold)}
+.footer-logo{font-family:var(--font-title);font-size:1rem;color:var(--gold-dim);margin-bottom:.5rem}
+
+/* ── ANCHOR OFFSET ── */
+.anchor{display:block;position:relative;top:-80px;visibility:hidden}
+
+@media(max-width:680px){
+  .nav-links{display:none}
+  .step{grid-template-columns:44px 1fr}
+  .stbl{font-size:.78rem}
+  .stbl td{padding:.5rem .6rem}
+}
 </style>
 </head>
 <body>
 
-<nav class="sidebar">
-  <div class="sidebar-logo">
-    <div class="plugin-name">Gridline Blueprints</div>
-    <span class="version-tag">v1.0 · UE 5.7 · Documentation</span>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">⬡ GRIDLINE BLUEPRINTS</div>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#installation">Install</a>
+      <a href="#quickstart">Quick Start</a>
+      <a href="#features">Features</a>
+      <a href="#named-reroutes">Named Reroutes</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#compatibility">Compatibility</a>
+      <a href="#faq">FAQ</a>
+    </div>
   </div>
-
-  <div class="nav-section-title">Getting Started</div>
-  <a href="#overview" class="active"><span class="nav-icon">◈</span> Overview</a>
-  <a href="#installation"><span class="nav-icon">⬇</span> Installation</a>
-  <a href="#quick-start"><span class="nav-icon">▶</span> Quick Start</a>
-
-  <div class="nav-section-title">Settings Reference</div>
-  <a href="#general"><span class="nav-icon">⊡</span> General</a>
-  <a href="#routing"><span class="nav-icon">↗</span> Routing</a>
-  <a href="#appearance"><span class="nav-icon">◎</span> Appearance</a>
-  <a href="#wire-spacing"><span class="nav-icon">⟺</span> Wire Spacing</a>
-  <a href="#node-avoidance"><span class="nav-icon">⬚</span> Node Avoidance</a>
-  <a href="#junctions"><span class="nav-icon">✕</span> Junctions</a>
-  <a href="#reroute-nodes"><span class="nav-icon">⤷</span> Reroute Nodes</a>
-  <a href="#named-reroutes"><span class="nav-icon">⬡</span> Named Reroutes</a>
-  <a href="#animation"><span class="nav-icon">◉</span> Wire Animation</a>
-
-  <div class="nav-section-title">Technical</div>
-  <a href="#architecture"><span class="nav-icon">⌬</span> Architecture</a>
-  <a href="#compatibility"><span class="nav-icon">✓</span> Compatibility</a>
-  <a href="#faq"><span class="nav-icon">?</span> FAQ</a>
 </nav>
 
-<main class="main">
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Unreal Engine Plugin — Editor Only</div>
+  <h1>Gridline<br/><span>Blueprints</span></h1>
+  <p>Orthogonal wire routing for Blueprint and Animation graph editors. Cleaner graphs. Fewer crossings. Zero runtime cost.</p>
+  <div class="hero-pills">
+    <div class="pill">Wire Spacing</div>
+    <div class="pill">Node Avoidance</div>
+    <div class="pill">Junctions</div>
+    <div class="pill">Flow Animation</div>
+    <div class="pill">Hidden Reroutes</div>
+    <div class="pill">Named Reroutes</div>
+    <div class="pill">Corner Styles</div>
+    <div class="pill">U-Turn Routing</div>
+  </div>
+  <div class="hero-divider"></div>
+</div>
 
-  <header class="hero">
-    <div class="hero-content">
-      <div class="hero-eyebrow">Plugin Documentation</div>
-      <h1>Gridline <span>Blueprints</span></h1>
-      <p class="hero-sub">
-        Orthogonal wire routing for Unreal Engine's Blueprint editor.
-        Cleaner graphs, smarter connections — built for the way engineers think.
-      </p>
-      <div class="hero-badges">
-        <span class="badge gold"><span class="badge-dot"></span>Unreal Engine Plugin</span>
-        <span class="badge">Editor-Only Module</span>
-        <span class="badge">Blueprint &amp; AnimGraph</span>
-        <span class="badge">UE 5.7</span>
-        <span class="badge">© 2025 HelixTheHare</span>
+<!-- OVERVIEW -->
+<section id="overview">
+  <span class="anchor"></span>
+  <div class="container">
+    <div class="sec-label">Introduction</div>
+    <div class="sec-title">What is Gridline Blueprints?</div>
+    <p class="sec-sub">A purely editor-side Unreal Engine plugin that replaces the default curved splines in Blueprint and Animation graphs with precise orthogonal (right-angle) wires — and adds a full suite of visual quality-of-life features on top.</p>
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">⚡</div><h3>Zero Runtime Impact</h3><p>The module type is <code>UncookedOnly</code>. It is stripped entirely from packaged builds and never touches runtime code paths.</p></div>
+      <div class="card"><div class="card-icon">📐</div><h3>Orthogonal Routing</h3><p>All wires route with horizontal and vertical segments, matching the visual discipline of professional schematic diagrams and logic editors.</p></div>
+      <div class="card"><div class="card-icon">🔀</div><h3>Smart Wire Management</h3><p>Automatic parallel wire spacing, multi-pass node avoidance, U-turn detection, and junction rendering keep dense graphs readable.</p></div>
+      <div class="card"><div class="card-icon">🏷️</div><h3>Named Reroutes</h3><p>Declaration and Usage node pairs let you label a wire once and reference its value anywhere in the same Blueprint without drawing a line across the graph.</p></div>
+      <div class="card"><div class="card-icon">▶</div><h3>Flow Animation</h3><p>Optional dot or pulse animations travel along wires to visualise data flow direction — toggleable per wire category.</p></div>
+      <div class="card"><div class="card-icon">🎛️</div><h3>Per-Project Settings</h3><p>Every parameter lives in Project Settings → Plugins → Gridline Blueprints, saved per-user so tweaks don't pollute source control.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTALLATION -->
+<section id="installation">
+  <span class="anchor"></span>
+  <div class="container">
+    <div class="sec-label">Getting Started</div>
+    <div class="sec-title">Installation</div>
+    <p class="sec-sub">Gridline Blueprints installs like any standard UE Marketplace or Fab plugin. No source build is required.</p>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Acquire the Plugin</h3>
+          <p>Purchase and download Gridline Blueprints from <strong>Fab</strong> via the Epic Games Launcher. The plugin will appear in your Fab Library.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Install to Engine or Project</h3>
+          <p>In the Epic Games Launcher, click <strong>Install to Engine</strong> next to Gridline Blueprints and select your target engine version (5.6 or 5.7). Alternatively, copy the <code>GridlineBlueprints</code> folder into your project's <code>Plugins/</code> directory for a project-local install.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Enable the Plugin</h3>
+          <p>Open your project in the Unreal Editor, then go to <strong>Edit → Plugins</strong>. Search for <em>Gridline Blueprints</em> under the Blueprint category and check the <strong>Enable</strong> checkbox.</p>
+          <div class="callout"><strong>Note:</strong> The editor will prompt you to restart. Save your work and click Restart Now.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Verify the Plugin is Active</h3>
+          <p>After the restart, open any Blueprint. Wires should now route orthogonally. If they still appear as curved splines, proceed to the troubleshooting section or the FAQ below.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h3>Configure Settings</h3>
+          <p>All plugin settings are found at <strong>Edit → Project Settings → Plugins → Gridline Blueprints</strong>. Settings are stored per-user in <code>EditorPerProjectUserSettings</code> and are not committed to source control by default.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- QUICK START -->
+<section id="quickstart">
+  <span class="anchor"></span>
+  <div class="container">
+    <div class="sec-label">First Steps</div>
+    <div class="sec-title">Quick Start Guide</div>
+    <p class="sec-sub">Get up and running with the most impactful settings in under two minutes.</p>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Open a Blueprint</h3>
+          <p>Open any Blueprint asset. Your wires will immediately route orthogonally using the default settings — <strong>Destination bias</strong>, <strong>28px pin length</strong>, eased corners, wire spacing enabled, and node avoidance on.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Choose Your Routing Bias</h3>
+          <p>In Project Settings, under <strong>Routing → Wire Routing Bias</strong>, choose:</p>
+          <ul>
+            <li><strong>Destination</strong> — the vertical bend appears near the input pin. Good for left-to-right flow graphs.</li>
+            <li><strong>Source</strong> — the vertical bend appears near the output pin.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Adjust Corner Style</h3>
+          <p>Under <strong>Appearance → Corner Style</strong>, pick the look you prefer:</p>
+          <ul>
+            <li><strong>Eased</strong> — smooth Bézier arc (default, most polished)</li>
+            <li><strong>Fillet</strong> — precise quarter-circle arc</li>
+            <li><strong>Chamfer</strong> — sharp diagonal cut, industrial look</li>
+          </ul>
+          <p style="margin-top:.5rem">Increase <strong>Corner Size</strong> (0–32 px) to control how large the curve is.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Try Wire Spacing</h3>
+          <p>Wire Spacing is enabled by default at 16 px. If you have many parallel wires, try increasing this to 20–24 px so each wire is clearly distinguishable. Decrease it for denser graphs.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h3>Place Your First Named Reroute</h3>
+          <p>Right-click any <strong>Reroute node</strong> in your Blueprint and select <strong>Convert to Named Reroute</strong>. Give the declaration a descriptive name. Then right-click anywhere in the graph and search for that name under <em>Named Reroutes</em> to place a Usage node — eliminating long wires that span large distances.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <span class="anchor"></span>
+  <div class="container">
+    <div class="sec-label">Reference</div>
+    <div class="sec-title">Features</div>
+    <p class="sec-sub">Every setting in Project Settings → Plugins → Gridline Blueprints is described below, grouped by category.</p>
+
+    <!-- GENERAL -->
+    <div class="feature-block">
+      <h3>General</h3>
+      <p>Top-level toggles that govern whether the plugin is active at all.</p>
+      <table class="stbl">
+        <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Enable Plugin</td><td>true</td><td>Master switch. Disabling this reverts all graphs to Unreal's default curved spline rendering without uninstalling the plugin.</td></tr>
+          <tr><td>Enable for Blueprint Graphs</td><td>true</td><td>Apply orthogonal routing in Blueprint event graphs, function graphs, and macro graphs.</td></tr>
+          <tr><td>Enable for Animation Graphs</td><td>true</td><td>Apply orthogonal routing in Animation Blueprint graphs (AnimGraph, state machines, etc.).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ROUTING -->
+    <div class="feature-block">
+      <h3>Routing</h3>
+      <p>These settings control the fundamental shape of every wire — where the bend appears, how long the pin stubs are, and how short wires behave.</p>
+      <table class="stbl">
+        <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Wire Routing Bias</td><td>Destination</td><td>Determines which pin the vertical segment is anchored to. <span class="enum-tag">Source</span> bends near the output pin; <span class="enum-tag">Destination</span> bends near the input pin.</td></tr>
+          <tr><td>Pin Length</td><td>28 px</td><td>Length of the horizontal stub that exits a pin before the wire turns vertically. Range: 14–64 px. Smaller values create tighter bends; larger values give more breathing room.</td></tr>
+          <tr><td>U-Turn Clearance Style</td><td>Clear Closest</td><td>Controls how U-turn wires calculate vertical clearance when the destination node partially overlaps the source. <span class="enum-tag">Clear Closest</span> automatically routes around the nearest bound. <span class="enum-tag">Clear Destination</span> and <span class="enum-tag">Clear Source</span> force routing around a specific node.</td></tr>
+          <tr><td>Short Wire Threshold</td><td>40 px</td><td>Wires whose straight-line length is below this value use Short Wire Style instead of full orthogonal routing. Set to 0 to disable. Range: 0–500 px.</td></tr>
+          <tr><td>Short Wire Style</td><td>Spline</td><td>Rendering method for short wires. <span class="enum-tag">Spline</span> draws a smooth curve between pin stubs. <span class="enum-tag">Straight</span> draws a direct diagonal line. <span class="enum-tag">Ortho</span> uses full right-angle segments even at short distances.</td></tr>
+          <tr><td>Short Wire Pin Length</td><td>14 px</td><td>Horizontal stub length specifically for short wires using Spline, Straight, or Ortho style. Range: 0–64 px.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout"><strong>U-Turns:</strong> A U-turn wire is produced when the destination node is positioned to the left of the source node, requiring the wire to double back. The plugin automatically detects this condition and routes the wire cleanly above or below both nodes.</div>
+    </div>
+
+    <!-- APPEARANCE -->
+    <div class="feature-block">
+      <h3>Appearance</h3>
+      <p>Visual style of the wires themselves — thickness, corner shape, and how tight junctions are handled.</p>
+      <table class="stbl">
+        <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Wire Thickness</td><td>1.0</td><td>Multiplier applied to all wire thicknesses. 1.0 is the Unreal default. Range: 0.5–5.0.</td></tr>
+          <tr><td>Corner Size</td><td>8 px</td><td>Radius of corners where wires change direction. 0 produces sharp right-angle bends. Range: 0–32 px. Must not exceed Pin Length.</td></tr>
+          <tr><td>Corner Style</td><td>Eased</td><td>Shape of the corner curve when Corner Size > 0. <span class="enum-tag">Eased</span> uses a Bézier arc for a smooth, weighted feel. <span class="enum-tag">Fillet</span> uses a precise quarter-circle. <span class="enum-tag">Chamfer</span> cuts the corner with a straight diagonal.</td></tr>
+          <tr><td>Tight Turn Threshold</td><td>2.0×</td><td>Vertical segments shorter than Corner Size × this value are treated as "tight turns." Range: 2–16×.</td></tr>
+          <tr><td>Tight Turn Style</td><td>Spline</td><td>How tight turns are rendered. <span class="enum-tag">Spline</span> replaces the short vertical segment and its two corners with a single smooth cubic spline. <span class="enum-tag">Straight</span> replaces them with a direct diagonal line.</td></tr>
+          <tr><td>Hide Reroute Nodes</td><td>false</td><td>When enabled, fully-connected Reroute (Knot) nodes are hidden along the wire. They reappear when the wire is hovered, allowing you to select or move them.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- WIRE SPACING -->
+    <div class="feature-block">
+      <h3>Wire Spacing</h3>
+      <p>When multiple wires share the same axis and overlap spatially, Wire Spacing offsets them perpendicular to their direction so each wire remains individually visible and selectable.</p>
+      <table class="stbl">
+        <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Enable Wire Spacing</td><td>true</td><td>Globally enable or disable the automatic parallel-wire offset pass.</td></tr>
+          <tr><td>Wire Spacing</td><td>16 px</td><td>Pixel distance between adjacent parallel wire segments after spacing is applied. Range: 8–64 px.</td></tr>
+        </tbody>
+      </table>
+      <p>Wire Spacing is applied in two passes — once after initial routing and once after node avoidance — so freshly rerouted wires are also spaced correctly. The sort order of wires within a group is determined by their source position to keep the visual arrangement consistent.</p>
+    </div>
+
+    <!-- NODE AVOIDANCE -->
+    <div class="feature-block">
+      <h3>Node Avoidance</h3>
+      <p>Node Avoidance detects when a wire's routable segments pass through an unrelated node's bounding rectangle and reroutes the wire around it.</p>
+      <table class="stbl">
+        <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Enable Node Avoidance</td><td>true</td><td>Enable or disable the node avoidance pass entirely.</td></tr>
+          <tr><td>Node Avoidance Style</td><td>Complex</td><td><span class="enum-tag">Simple</span> shifts the vertical segment sideways to clear the obstacle. <span class="enum-tag">Complex</span> inserts additional horizontal and vertical detour segments to route entirely around the node bounds.</td></tr>
+          <tr><td>Node Avoidance Padding</td><td>16 px</td><td>Minimum clearance between rerouted wire paths and node edges. Range: 0–64 px.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn"><strong>Note:</strong> Comment nodes are explicitly excluded from avoidance checks — wires are allowed to cross comment box borders freely.</div>
+      <p>The avoidance phase runs up to five passes per wire to handle multiple stacked obstacles. Source and destination nodes are always excluded from their own wire's avoidance check.</p>
+    </div>
+
+    <!-- JUNCTIONS -->
+    <div class="feature-block">
+      <h3>Junctions</h3>
+      <p>Where a horizontal wire crosses a vertical wire from a different connection, a junction indicator is drawn to make the crossing unambiguous.</p>
+      <table class="stbl">
+        <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Enable Junctions</td><td>true</td><td>Draw visual crossing indicators at wire intersections.</td></tr>
+          <tr><td>Junction Style</td><td>Jump</td><td>
+            <span class="enum-tag">Break</span> — a gap is cut in the crossing wire, leaving the horizontal wire intact.<br/>
+            <span class="enum-tag">Jump</span> — the crossing wire arcs over the horizontal wire (small semicircle).<br/>
+            <span class="enum-tag">Ring</span> — an open circle outline is drawn at the crossing center.<br/>
+            <span class="enum-tag">Disc</span> — a filled circle is drawn at the crossing center.
+          </td></tr>
+          <tr><td>Junction Size</td><td>12 px</td><td>Diameter of junction indicators. Range: 8–32 px.</td></tr>
+        </tbody>
+      </table>
+      <p>Junctions are never drawn between two wires that share a source or destination pin — only genuine crossings from unrelated connections produce a junction indicator. Spatial bucketing is used internally to keep junction detection efficient even in large graphs.</p>
+    </div>
+
+    <!-- FLOW ANIMATION -->
+    <div class="feature-block">
+      <h3>Flow Animation</h3>
+      <p>Animated indicators travel along wires to show the direction of data flow, mirroring the execution bubble animation Unreal uses during debug PIE sessions.</p>
+      <table class="stbl">
+        <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Enable Flow Animation</td><td>false</td><td>Master toggle for flow animation.</td></tr>
+          <tr><td>Animation Style</td><td>Dot</td><td><span class="enum-tag">Dot</span> — repeating circular indicators travel along the wire. <span class="enum-tag">Pulse</span> — traveling brightness waves drawn with custom vertex geometry for a glow effect.</td></tr>
+          <tr><td>Animated Wire Types</td><td>Execution Only</td><td>
+            <span class="enum-tag">Execution Wires Only</span> — only white exec wires animate.<br/>
+            <span class="enum-tag">Data Wires Only</span> — only typed data wires animate.<br/>
+            <span class="enum-tag">All Wires</span> — every wire animates.<br/>
+            <span class="enum-tag">Selected Node Wires Only</span> — only wires connected to currently selected nodes animate.
+          </td></tr>
+          <tr><td>Animation Spacing</td><td>64 px</td><td>Distance between successive animated elements. For Pulse style, the pulse length is 60% of this value. Range: 16–256 px.</td></tr>
+          <tr><td>Animation Speed</td><td>192 px/s</td><td>Travel speed of animated elements in pixels per second (at 1:1 zoom). Range: 32–512 px/s.</td></tr>
+          <tr><td>Animation Size</td><td>0.2×</td><td>Size of each animated element relative to the wire thickness. Range: 0.1–1.0.</td></tr>
+          <tr><td>Pulse Brightness</td><td>1.5×</td><td>Brightness multiplier for the Pulse style glow. 1.0 = wire color, values above 1 create an overdriven glow. Range: 0.5–3.0. Only shown when Animation Style is Pulse.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>Performance:</strong> Flow animation integrates into the existing wire draw pass. The Dot style has negligible overhead. The Pulse style generates custom vertex geometry per frame per wire; in graphs with hundreds of animated wires, consider limiting animation to <em>Selected Node Wires Only</em>.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NAMED REROUTES -->
+<section id="named-reroutes">
+  <span class="anchor"></span>
+  <div class="container">
+    <div class="sec-label">Feature Deep-Dive</div>
+    <div class="sec-title">Named Reroutes</div>
+    <p class="sec-sub">Named Reroutes let you label a wire value once — the Declaration — and consume it from any number of Usage nodes anywhere in the same Blueprint, eliminating long wires that span large graph areas.</p>
+
+    <div class="feature-block">
+      <h3>Declaration Node</h3>
+      <p>A <strong>Named Reroute Declaration</strong> node has one input pin and one output pin, just like a standard Reroute node. It is distinguished by a colored title bar bearing the reroute's name, set as a property you can edit directly in the node.</p>
+      <ul>
+        <li><strong>Name</strong> — displayed on the node title bar and used to identify the reroute in Usage node spawners. Names are enforced to be unique within a Blueprint; a numeric suffix is appended automatically if needed.</li>
+        <li><strong>Node Color</strong> — the color of the title bar. Both the Declaration and all its Usage nodes share this color for visual grouping.</li>
+        <li>The Declaration's <strong>input pin connects type information</strong> upstream. If the input is unconnected but a Usage's output is typed, the type propagates back to the Declaration automatically.</li>
+        <li>Double-clicking a Declaration (Jump to Definition) opens the Find Results panel filtered to all Usages of that name within the Blueprint.</li>
+      </ul>
+    </div>
+
+    <div class="feature-block">
+      <h3>Usage Node</h3>
+      <p>A <strong>Named Reroute Usage</strong> node has only an output pin (visible) plus a hidden structural input pin that links it to the Declaration's output for type inference. It behaves like a pure node that re-emits the Declaration's value.</p>
+      <ul>
+        <li>Place via right-click → search the declaration's name under the <em>Named Reroutes</em> category.</li>
+        <li>Double-clicking a Usage (Jump to Definition) navigates to its Declaration node, selecting and zooming to it.</li>
+        <li>Multiple Usage nodes per Declaration are fully supported.</li>
+        <li>If the Declaration is deleted, Usage nodes become orphaned — they display a black title and the label <em>Invalid Named Reroute</em>. See the FAQ for recovery options.</li>
+      </ul>
+    </div>
+
+    <div class="feature-block">
+      <h3>Context Menu Actions</h3>
+      <table class="stbl">
+        <thead><tr><th>Node</th><th>Action</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>Reroute (Knot)</td><td>Convert to Named Reroute</td><td>Replaces the standard Reroute node with a Declaration + optionally a Usage node, preserving all connections.</td></tr>
+          <tr><td>Declaration</td><td>Select Named Reroute Usages</td><td>Opens Find Results filtered to all Usage nodes for this Declaration within the Blueprint.</td></tr>
+          <tr><td>Declaration</td><td>Create Reroute Usage</td><td>Spawns a new Usage node adjacent to the Declaration.</td></tr>
+          <tr><td>Declaration</td><td>Convert to Reroute</td><td>Replaces this Declaration and all its Usages with a single standard Reroute node.</td></tr>
+          <tr><td>Usage</td><td>Select Named Reroute Declaration</td><td>Navigates to and selects the corresponding Declaration node, even if it is in a different graph.</td></tr>
+          <tr><td>Usage</td><td>Convert to Reroute</td><td>Converts the entire Declaration + all Usages to a standard Reroute node.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="feature-block">
+      <h3>Compilation Behaviour</h3>
+      <p>At compile time, Named Reroute nodes are transparent to the Blueprint compiler — the compiler sees the original source pin, not the reroute pair. This is achieved through <code>ExpandNode</code>:</p>
+      <ul>
+        <li>The Declaration traces its input chain upstream through Knots and other Declarations to find the first real source pin.</li>
+        <li>All consumers (direct or via Usage nodes) are reconnected directly to that source pin in the intermediate graph.</li>
+        <li>The structural input pin on each Usage node (the hidden link to the Declaration's output) is broken before compilation so it never appears in the compiled result.</li>
+        <li>If a Declaration is chained from another Declaration and the chain contains a cycle, compilation will emit a warning and leave those consumers disconnected.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <span class="anchor"></span>
+  <div class="container">
+    <div class="sec-label">Technical</div>
+    <div class="sec-title">Architecture</div>
+    <p class="sec-sub">An overview of how the plugin integrates with the Unreal Editor graph system and how the wire routing pipeline is structured.</p>
+
+    <div class="feature-block">
+      <h3>Module Structure</h3>
+      <div class="arch-grid">
+        <div class="arch-cell"><h4>FGridlineBlueprintsModule</h4><p>Top-level IModuleInterface. Registers the connection factory and node factory on startup; unregisters on shutdown.</p></div>
+        <div class="arch-cell"><h4>FGridlineBlueprintsConnectionDrawingPolicyFactory</h4><p>FGraphPanelPinConnectionFactory subclass. Intercepts schema queries for K2 and AnimGraph schemas, returning the custom drawing policy.</p></div>
+        <div class="arch-cell"><h4>FGridlineBlueprintsConnectionDrawingPolicy</h4><p>FKismetConnectionDrawingPolicy subclass. Collects wire data, runs the routing pipeline, and draws segments.</p></div>
+        <div class="arch-cell"><h4>UGridlineBlueprintsSettings</h4><p>UDeveloperSettings subclass. Config class stored in EditorPerProjectUserSettings. Drives all phase behaviour.</p></div>
+        <div class="arch-cell"><h4>IWireRoutingPhase</h4><p>Abstract interface. Each routing stage is an independent IWireRoutingPhase implementation operating on the shared TArray&lt;FWireData&gt;.</p></div>
+        <div class="arch-cell"><h4>Named Reroute Nodes</h4><p>UK2Node_NamedRerouteDeclaration and UK2Node_NamedRerouteUsage — UK2Node subclasses. Registered via FNamedRerouteNodeFactory (FGraphPanelNodeFactory).</p></div>
       </div>
     </div>
-  </header>
 
-  <div class="content">
+    <div class="feature-block">
+      <h3>Wire Routing Pipeline</h3>
+      <p>Each frame, <code>Draw()</code> calls <code>FKismetConnectionDrawingPolicy::Draw()</code> to enumerate all pin connections, each of which calls back to <code>DrawConnection()</code>. Non-short wires are deferred into <code>PendingWires</code>. After enumeration, <code>ProcessAllWires()</code> runs the following phase sequence:</p>
+      <div class="arch-pipeline">
+        <div class="arch-phase">1. Basic Path</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-phase">2. U-Turn Resolution</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-phase">3. Wire Spacing</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-phase">4. U-Turn Bridge Correction</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-phase">5. Post-Spacing U-Turn</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-phase">6. Node Avoidance</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-phase">7. Wire Spacing (2nd pass)</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-phase">8. U-Turn Bridge Correction (2nd pass)</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-phase">9. Corner Processing</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-phase">10. Junction Processing</div>
+      </div>
+      <table class="stbl" style="margin-top:1rem">
+        <thead><tr><th>Phase</th><th>Class</th><th>Responsibility</th></tr></thead>
+        <tbody>
+          <tr><td>Basic Path</td><td>(inline)</td><td>Generates the initial 3-segment orthogonal path (H–V–H) for each wire based on routing bias and pin length.</td></tr>
+          <tr><td>U-Turn Resolution</td><td>FUTurnResolutionPhase</td><td>Detects wires whose vertical segment intersects the source (or destination) node bounds and rebuilds them as 5-segment U-turn paths.</td></tr>
+          <tr><td>Wire Spacing</td><td>FWireSpacingPhase</td><td>Groups overlapping parallel segments using union-find, sorts each group, and applies progressive lateral offsets.</td></tr>
+          <tr><td>U-Turn Bridge Correction</td><td>FUTurnBridgeCorrectionPhase</td><td>Verifies that the horizontal bridge segment of a U-turn does not clip through the source or destination node after spacing.</td></tr>
+          <tr><td>Post-Spacing U-Turn</td><td>FPostSpacingUTurnPhase</td><td>Re-evaluates wires that were pushed by spacing into U-turn territory. Converts them and spaces any newly-created U-turns.</td></tr>
+          <tr><td>Node Avoidance</td><td>FNodeAvoidancePhase</td><td>Up to 5 avoidance passes per wire. Detects segment/obstacle intersections, then either shifts or inserts detour segments.</td></tr>
+          <tr><td>Corner Processing</td><td>FCornerProcessingPhase</td><td>Replaces straight-line segment junctions with Bézier/fillet/chamfer arcs. Short vertical segments become splines or straight diagonals.</td></tr>
+          <tr><td>Junction Processing</td><td>FJunctionPhase</td><td>Detects horizontal/vertical wire crossings via spatial bucketing and inserts FWireSegment::Junction markers at intersection points.</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-    <!-- ══ OVERVIEW ══ -->
-    <div id="overview" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">◈</span>
-        <h2>Overview</h2>
+    <div class="feature-block">
+      <h3>Wire Data Model</h3>
+      <p>Each connection is represented by an <code>FWireData</code> struct that flows through the pipeline:</p>
+      <div class="code"><span class="kw">struct</span> FWireData {<br/>
+&nbsp;&nbsp;int32             LayerId;<br/>
+&nbsp;&nbsp;FVector2f         Start, End;<br/>
+&nbsp;&nbsp;FConnectionParams Params;<br/>
+&nbsp;&nbsp;TArray&lt;FWireSegment&gt; Segments; <span class="cm">// mutated by each phase</span><br/>
+&nbsp;&nbsp;<span class="kw">bool</span> bIsUTurn, bWasNodeAvoided, bIsExecWire, bIsForcedNodeAvoided;<br/>
+};<br/><br/>
+<span class="kw">enum class</span> EWireSegmentType : uint8 {<br/>
+&nbsp;&nbsp;Line, Corner, Junction, Spline<br/>
+};</div>
+      <p>Phases may add, remove, or modify <code>FWireSegment</code> entries. The final segment array is consumed by the draw helpers (<code>DrawLine</code>, <code>DrawCorner</code>, <code>DrawJunction</code>, <code>DrawSpline</code>) and hover detection.</p>
+    </div>
+
+    <div class="feature-block">
+      <h3>UE 5.7 Slice Line Support</h3>
+      <p>The plugin includes conditional compilation blocks for the slice-line API introduced in UE 5.7 (<code>ENGINE_MINOR_VERSION >= 7</code>). When active, any wire whose segments intersect the slice line is registered in <code>ConnectionsIntersectingSliceLine</code>, which triggers Unreal's built-in de-emphasis alpha. This is handled for both full orthogonal wires and short-wire paths.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPATIBILITY -->
+<section id="compatibility">
+  <span class="anchor"></span>
+  <div class="container">
+    <div class="sec-label">Technical</div>
+    <div class="sec-title">Compatibility</div>
+    <p class="sec-sub">Supported graph types, engine versions, platforms, and third-party plugin interoperability.</p>
+
+    <div class="compat-grid">
+
+      <div class="compat-card">
+        <h4>Graph Types</h4>
+        <div class="compat-row"><span>Blueprint Event Graph</span><span class="badge-yes">SUPPORTED</span></div>
+        <div class="compat-row"><span>Blueprint Function Graph</span><span class="badge-yes">SUPPORTED</span></div>
+        <div class="compat-row"><span>Blueprint Macro Graph</span><span class="badge-yes">SUPPORTED</span></div>
+        <div class="compat-row"><span>Animation Blueprint (AnimGraph)</span><span class="badge-yes">SUPPORTED</span></div>
+        <div class="compat-row"><span>Material Graph</span><span class="badge-no">NOT SUPPORTED</span></div>
+        <div class="compat-row"><span>Niagara Graph</span><span class="badge-no">NOT SUPPORTED</span></div>
+        <div class="compat-row"><span>PCG Graph</span><span class="badge-no">NOT SUPPORTED</span></div>
       </div>
 
-      <p>
-        Gridline Blueprints replaces Unreal Engine's default spline wire renderer in Blueprint and AnimGraph editors
-        with a fully orthogonal routing system. Wires travel in horizontal and vertical segments only — like a
-        professional schematic — making complex graphs dramatically easier to read and navigate.
-      </p>
-
-      <div class="card-grid">
-        <div class="info-card">
-          <div class="card-title">◈ Orthogonal Routing</div>
-          <div class="card-body">All wires snap to right-angle paths. No more diagonal spaghetti. Vertical and horizontal segments are routed intelligently based on pin positions.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">⬚ Node Avoidance</div>
-          <div class="card-body">Wires automatically route around nodes in their path. Both Simple (horizontal shift) and Complex (full reroute) avoidance styles available.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">⟺ Wire Spacing</div>
-          <div class="card-body">Parallel wires running on the same axis are automatically spaced apart to eliminate visual overlap and improve clarity.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">✕ Junction Markers</div>
-          <div class="card-body">Wires that cross over each other show clear visual indicators: Gap, Jump arc, Ring, or Disc — your choice of style.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">⤷ Hidden Reroute Nodes</div>
-          <div class="card-body">Make reroute nodes invisible, integrating them seamlessly into the wire path. They reappear on hover for easy selection.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">⬡ Named Reroutes</div>
-          <div class="card-body">Named Reroute Declaration and Usage nodes let you tag a wire with a name and color, then re-tap that value anywhere in the Blueprint — even across graphs.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">◉ Flow Animation</div>
-          <div class="card-body">Animated Dot or Pulse indicators travel along wires to visualize data flow direction. Configurable for exec wires, data wires, or all wires.</div>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider">Installation</div>
-
-    <!-- ══ INSTALLATION ══ -->
-    <div id="installation" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">⬇</span>
-        <h2>Installation</h2>
+      <div class="compat-card">
+        <h4>Engine Versions</h4>
+        <div class="compat-row"><span>UE 5.7</span><span class="badge-yes">FULLY SUPPORTED</span></div>
+        <div class="compat-row"><span>UE 5.6</span><span class="badge-yes">SUPPORTED</span></div>
+        <div class="compat-row"><span>UE 5.5 and below</span><span class="badge-no">NOT SUPPORTED</span></div>
+        <div class="compat-row"><span>Slice Line API (5.7+)</span><span class="badge-yes">AUTO-ENABLED</span></div>
+        <div class="compat-row"><span>Forward Compat (5.8+)</span><span class="badge-partial">UNTESTED</span></div>
       </div>
 
-      <h3>From Fab Marketplace</h3>
-      <ol class="steps">
-        <li><p><strong>Purchase and install</strong> Gridline Blueprints from the Fab marketplace. It will appear in your Epic Games Library under Vault.</p></li>
-        <li><p><strong>Add to project:</strong> Click "Add to Project" next to the plugin in your Library and select your target project and engine version.</p></li>
-        <li><p><strong>Enable the plugin</strong> inside your project: navigate to <em>Edit → Plugins</em>, search for <strong>Gridline Blueprints</strong>, and ensure the checkbox is enabled.</p></li>
-        <li><p><strong>Restart the editor</strong> when prompted. The plugin activates automatically on startup — no additional setup required.</p></li>
-      </ol>
-
-      <h3>Manual Installation</h3>
-      <ol class="steps">
-        <li><p><strong>Copy the plugin folder</strong> (<code>GridlineBlueprints/</code>) into your project's <code>Plugins/</code> directory. Create the directory if it doesn't exist.</p></li>
-        <li><p><strong>Regenerate project files</strong> by right-clicking your <code>.uproject</code> file and selecting "Generate Visual Studio project files".</p></li>
-        <li><p><strong>Build and launch</strong> the editor. The plugin will compile automatically as part of the build.</p></li>
-        <li><p><strong>Enable if needed</strong> via <em>Edit → Plugins → Gridline Blueprints</em>.</p></li>
-      </ol>
-
-      <div class="callout note">
-        <div class="callout-label">Note</div>
-        <p>Gridline Blueprints is an <strong>Editor-only module</strong>. It does not add any runtime overhead, is stripped from shipping builds, and will never affect your game's packaged performance.</p>
-      </div>
-    </section>
-
-    <div class="section-divider">Quick Start</div>
-
-    <!-- ══ QUICK START ══ -->
-    <div id="quick-start" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">▶</span>
-        <h2>Quick Start</h2>
+      <div class="compat-card">
+        <h4>Platforms (Editor)</h4>
+        <div class="compat-row"><span>Windows 64-bit</span><span class="badge-yes">SUPPORTED</span></div>
+        <div class="compat-row"><span>macOS</span><span class="badge-yes">SUPPORTED</span></div>
+        <div class="compat-row"><span>Linux</span><span class="badge-yes">SUPPORTED</span></div>
+        <div class="compat-row"><span>Shipped / Packaged Build</span><span class="badge-no">EXCLUDED (by design)</span></div>
       </div>
 
-      <p>After installation the plugin is active immediately — open any Blueprint and your wires will already use orthogonal routing. To configure the behavior:</p>
-
-      <ol class="steps">
-        <li><p>Navigate to <strong>Edit → Project Settings</strong> (or <em>Editor Preferences</em> for user-local settings).</p></li>
-        <li><p>Under the <strong>Plugins</strong> category, click <strong>Gridline Blueprints</strong>.</p></li>
-        <li><p>All settings take effect <strong>immediately</strong> — no restart or graph refresh needed.</p></li>
-      </ol>
-
-      <div class="callout">
-        <div class="callout-label">Tip</div>
-        <p>Settings are stored per-project in <code>Config/DefaultEditorPerProjectUserSettings.ini</code>. They're user-local by default and won't affect teammates unless committed.</p>
-      </div>
-    </section>
-
-    <div class="section-divider">Settings Reference</div>
-
-    <!-- ══ GENERAL ══ -->
-    <div id="general" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">⊡</span>
-        <h2>General Settings</h2>
+      <div class="compat-card">
+        <h4>Other Plugins</h4>
+        <div class="compat-row"><span>Blueprint Assist</span><span class="badge-partial">MOSTLY COMPATIBLE</span></div>
+        <div class="compat-row"><span>Standard Reroute Nodes</span><span class="badge-yes">FULLY COMPATIBLE</span></div>
+        <div class="compat-row"><span>Editor utility widgets</span><span class="badge-yes">COMPATIBLE</span></div>
+        <div class="compat-row"><span>Runtime Blueprint plugins</span><span class="badge-yes">UNAFFECTED</span></div>
       </div>
 
-      <p>Top-level toggles that control whether Gridline Blueprints is active and which graph types it applies to.</p>
+    </div>
 
-      <div class="settings-grid">
-        <div class="setting-row header-row">
-          <div class="setting-cell">Setting</div>
-          <div class="setting-cell">Type</div>
-          <div class="setting-cell">Description</div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Enable Plugin</span></div>
-          <div class="setting-cell"><span class="tag bool">bool</span></div>
-          <div class="setting-cell"><span class="setting-desc">Master toggle for the entire plugin. Disabling this restores Unreal's default spline wire rendering across all graph types. <span class="default-tag">default: true</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Enable for Blueprint Graphs</span></div>
-          <div class="setting-cell"><span class="tag bool">bool</span></div>
-          <div class="setting-cell"><span class="setting-desc">Applies orthogonal routing to Blueprint event graphs and function editors. Disable to use default routing in Blueprint Graphs while keeping the plugin active for other graph types. <span class="default-tag">default: true</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Enable for Animation Graphs</span></div>
-          <div class="setting-cell"><span class="tag bool">bool</span></div>
-          <div class="setting-cell"><span class="setting-desc">Applies orthogonal routing to Animation event graphs and function editors. Disable to use default routing in Animation Graphs while keeping the plugin active for other graph types. <span class="default-tag">default: true</span></span></div>
-        </div>
+    <div class="callout" style="margin-top:1.5rem">
+      <strong>Blueprint Assist compatibility:</strong> Blueprint Assist operates at the node layout layer (repositioning nodes) while Gridline Blueprints operates at the wire drawing layer (rendering connections). The two systems do not conflict at runtime. However, because Blueprint Assist may reposition nodes after Gridline's wire spacing has been calculated, visual spacing artifacts can occasionally appear until the graph is re-rendered. Both plugins can be used together productively.
+    </div>
+
+    <div class="callout" style="margin-top:.8rem">
+      <strong>Material / Niagara / PCG graphs:</strong> These editors use different graph schemas (not <code>UEdGraphSchema_K2</code> or <code>UAnimationGraphSchema</code>). The plugin's connection factory explicitly checks for K2 and Animation schemas and returns <code>nullptr</code> for all others, so those editors are completely unaffected.
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <span class="anchor"></span>
+  <div class="container">
+    <div class="sec-label">Support</div>
+    <div class="sec-title">Frequently Asked Questions</div>
+    <p class="sec-sub">Common questions about installation, behaviour, and edge cases.</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Will this affect my shipped game?</span><div class="faq-icon">+</div></button>
+      <div class="faq-a">No. Gridline Blueprints is an Editor-only module (type <code>UncookedOnly</code>). It is completely excluded from packaged builds and has zero effect on runtime performance or behavior. The <code>.uplugin</code> file lists only Win64, Mac, and Linux under <code>PlatformAllowList</code>, all of which refer to editor platforms only.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>My wires look the same after installing. What's wrong?</span><div class="faq-icon">+</div></button>
+      <div class="faq-a">Ensure the plugin is enabled in <strong>Edit → Plugins → Gridline Blueprints</strong> and that <strong>Enable Plugin</strong> is checked in Project Settings → Plugins → Gridline Blueprints. A full editor restart after enabling is recommended. If the issue persists, verify that you installed the correct version of the plugin for your engine version (5.6 vs 5.7).</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Does this work with Animation Blueprints?</span><div class="faq-icon">+</div></button>
+      <div class="faq-a">Yes. Animation Blueprint graphs using <code>UAnimationGraphSchema</code> are explicitly supported. You can enable or disable orthogonal routing in Animation graphs independently from Blueprint graphs using the <strong>Enable for Animation Graphs</strong> toggle in General settings. State machine graphs and blend graphs within an Animation Blueprint are all covered.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Does this work with Blueprint Assist?</span><div class="faq-icon">+</div></button>
+      <div class="faq-a">Yes, both plugins can be used together. Blueprint Assist handles <em>node layout</em> (repositioning and aligning nodes in the graph), while Gridline Blueprints handles <em>wire rendering</em> (drawing connections between pins). These are separate systems that do not interfere with each other at the API level. In practice, after Blueprint Assist reformats a graph you may occasionally see wire spacing appear off until the graph redraws — this resolves itself on the next render pass. There are no known hard conflicts.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Wires are still overlapping even with Wire Spacing enabled.</span><div class="faq-icon">+</div></button>
+      <div class="faq-a">Wire Spacing only applies to segments that are both parallel (same axis) and spatially overlapping. A few situations can cause apparent overlap:
+        <ul>
+          <li>Short wires (below Short Wire Threshold) bypass the full routing pipeline and are not spaced.</li>
+          <li>Wires that share the same destination pin are intentionally excluded from spacing relative to each other — they are meant to converge.</li>
+          <li>Very small graph zoom levels can make spaced wires appear to overlap due to pixel density. Zoom in to confirm.</li>
+          <li>Try increasing the <strong>Wire Spacing</strong> value (e.g. 20–24 px) if 16 px is insufficient for your wire thickness setting.</li>
+        </ul>
       </div>
-    </section>
+    </div>
 
-    <!-- ══ ROUTING ══ -->
-    <div id="routing" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">↗</span>
-        <h2>Routing Settings</h2>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Node avoidance is causing wires to take very long or strange paths.</span><div class="faq-icon">+</div></button>
+      <div class="faq-a">This can happen when many obstacles are stacked and the avoidance pass inserts multiple detour segments. Try the following:
+        <ul>
+          <li>Switch <strong>Node Avoidance Style</strong> from <em>Complex</em> to <em>Simple</em> — Simple shifts segments sideways without inserting extra geometry, which is less aggressive.</li>
+          <li>Reduce <strong>Node Avoidance Padding</strong> from 16 px to 8 px or lower to tighten clearance.</li>
+          <li>Reorganise the graph so that fewer nodes lie between connected pairs — avoidance is a complement to good graph layout, not a substitute.</li>
+          <li>Disable node avoidance entirely and rely on wire spacing alone for graphs where avoidance paths are creating clutter.</li>
+        </ul>
       </div>
+    </div>
 
-      <p>Controls how wire paths are calculated — where bends occur, how far pin stubs extend, and how short wires are handled when orthogonal routing would produce an awkward result.</p>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>How do I access hidden reroute nodes to move or delete them?</span><div class="faq-icon">+</div></button>
+      <div class="faq-a">When <strong>Hide Reroute Nodes</strong> is enabled, a Reroute node is hidden only while its wire is not being hovered. To reveal it, hover your mouse cursor over the wire that passes through the node's position. The node will become visible and fully interactive — you can then click to select it, drag to reposition it, or press Delete to remove it. Moving your cursor away from the wire will hide it again.</div>
+    </div>
 
-      <div class="settings-grid">
-        <div class="setting-row header-row">
-          <div class="setting-cell">Setting</div>
-          <div class="setting-cell">Type</div>
-          <div class="setting-cell">Description</div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Bend Position<br><span style="font-size:0.68rem;color:var(--text-dim)">(WirePathBias)</span></span></div>
-          <div class="setting-cell"><span class="tag enum">enum</span></div>
-          <div class="setting-cell"><span class="setting-desc">Determines where the wire's vertical segment is anchored. <strong>Source</strong> places the bend near the output pin; <strong>Destination</strong> places it near the input pin. Affects the overall shape and balance of each wire. <span class="default-tag">default: Destination</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Pin Length</span></div>
-          <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">Length in pixels of the horizontal stub that extends from the anchor pin before the wire turns. Increasing this creates more breathing room around pins. Corner Size is clamped to never exceed this value. Range: 14–64. <span class="default-tag">default: 28</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Short Wire Threshold</span></div>
-          <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">If a wire's straight-line distance is shorter than this value (in pixels), it uses the Short Wire Style instead of gridline routing. Short connections at right-angles can look awkward with hard corners, so this fallback produces a more natural result. Set to <strong>0</strong> to always use orthogonal routing. Range: 0–500. <span class="default-tag">default: 40</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Short Wire Style</span></div>
-          <div class="setting-cell"><span class="tag enum">enum</span></div>
-          <div class="setting-cell"><span class="setting-desc">Routing style applied to wires that fall below Short Wire Threshold. <strong>Spline</strong> uses a standard curved spline; <strong>Straight</strong> draws a single direct line; <strong>Ortho</strong> routes with right-angle segments using Short Wire Pin Length stubs. Only applies when Short Wire Threshold is greater than 0. <span class="default-tag">default: Spline</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Short Wire Pin Length</span></div>
-          <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">Pin stub length used when the Short Wire fallback is active. Applies to Spline, Straight, and Ortho styles. Typically set shorter than the main Pin Length since short wires need less visual breathing room. Only applies when Short Wire Threshold is greater than 0. Range: 0–64. <span class="default-tag">default: 14</span></span></div>
-        </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Does flow animation impact editor performance?</span><div class="faq-icon">+</div></button>
+      <div class="faq-a">For most graphs, the impact is negligible. The <strong>Dot</strong> style adds one <code>FSlateDrawElement::MakeBox</code> call per visible dot per wire and is very lightweight. The <strong>Pulse</strong> style generates custom vertex geometry (a quad strip) per pulse segment per frame, which is more expensive. In very large graphs with many animated wires, consider restricting animation to <em>Selected Node Wires Only</em> or <em>Execution Wires Only</em> to keep the animated element count manageable. Flow animation is disabled by default.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>I deleted a Declaration and now my Usage nodes are broken. What do I do?</span><div class="faq-icon">+</div></button>
+      <div class="faq-a">Deleting a Declaration orphans all its Usage nodes — they will display a black title bar and the label <em>Invalid Named Reroute</em>. You have three recovery options:
+        <ul>
+          <li><strong>Undo</strong> (Ctrl+Z) the deletion to restore the Declaration and its connections.</li>
+          <li><strong>Right-click</strong> each orphaned Usage node and choose <strong>Convert to Reroute</strong> to replace it individually with a standard Reroute node that preserves its downstream connections.</li>
+          <li><strong>Delete</strong> the orphaned Usage nodes if you no longer need that wire path.</li>
+        </ul>
+        Orphaned Usage nodes that remain in the graph will produce a compile error when the Blueprint is compiled.
       </div>
-
-      <h3>Bend Position Values</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Value</th><th>Behavior</th></tr></thead>
-          <tbody>
-            <tr><td>Source</td><td>The horizontal segment runs from the output pin. The vertical drop happens near the source node, then a long horizontal run reaches the destination. Good for left-heavy graphs.</td></tr>
-            <tr><td>Destination</td><td>The long horizontal segment runs toward the input pin first. The vertical drop happens near the destination node. Generally produces more balanced layouts. <em>(Default)</em></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Short Wire Style Values</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Value</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr><td>Spline</td><td>Uses a standard Bézier spline between the two pins — the same curved style as Unreal's default wire renderer. Produces a natural, smooth look for tight connections. <em>(Default)</em></td></tr>
-            <tr><td>Straight</td><td>Draws a single straight line directly between the output and input pins. Minimal and precise; best suited for adjacent nodes where there is no visual ambiguity.</td></tr>
-            <tr><td>Ortho</td><td>Routes the wire using right-angle segments — a short horizontal stub from each pin, joined by a vertical segment. Mirrors the full orthogonal routing style but scaled for short distances. Uses the Short Wire Pin Length setting to control stub length.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- ══ APPEARANCE ══ -->
-    <div id="appearance" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">◎</span>
-        <h2>Appearance Settings</h2>
-      </div>
-
-      <p>Controls the visual presentation of individual wires — thickness, corner size, and the style used for direction changes.</p>
-
-      <div class="settings-grid">
-        <div class="setting-row header-row">
-          <div class="setting-cell">Setting</div>
-          <div class="setting-cell">Type</div>
-          <div class="setting-cell">Description</div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Wire Thickness</span></div>
-          <div class="setting-cell"><span class="tag float">float</span></div>
-          <div class="setting-cell"><span class="setting-desc">Multiplier applied to the base wire thickness. <strong>1.0</strong> = default engine thickness; <strong>2.0</strong> = double; <strong>0.5</strong> = half. Range: 0.5–5.0. <span class="default-tag">default: 1.0</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Corner Size</span></div>
-          <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">Radius in pixels of the rounded arc drawn where a wire changes direction. Set to <strong>0</strong> for sharp 90° corners. Range: 0–32. Must not exceed Pin Length. <span class="default-tag">default: 8</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Corner Style</span></div>
-          <div class="setting-cell"><span class="tag enum">enum</span></div>
-          <div class="setting-cell"><span class="setting-desc">Visual treatment of corner curves. Only applies when Corner Size &gt; 0. <span class="default-tag">default: Eased</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Tight Turn Threshold</span></div>
-          <div class="setting-cell"><span class="tag float">float</span></div>
-          <div class="setting-cell"><span class="setting-desc">A multiplier that determines when a vertical segment is too short for normal corner rendering. If a vertical segment's length is less than <strong>Corner Size × this value</strong>, the segment is replaced with Tight Turn Style instead. Only applies when Corner Size &gt; 0. Range: 2–16. <span class="default-tag">default: 2.0</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Tight Turn Style</span></div>
-          <div class="setting-cell"><span class="tag enum">enum</span></div>
-          <div class="setting-cell"><span class="setting-desc">Rendering style used when a vertical segment falls below the Tight Turn Threshold. Only applies when Corner Size &gt; 0. <span class="default-tag">default: Spline</span></span></div>
-        </div>
-      </div>
-
-      <h3>Corner Style Values</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Value</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr><td>Eased</td><td>Standard Bézier arc. A gentle, natural-feeling curve. Most similar to the default spline look but constrained to 90°. <em>(Default)</em></td></tr>
-            <tr><td>Fillet</td><td>A more geometrically precise quarter-circle arc. Produces a crisp, technical schematic look.</td></tr>
-            <tr><td>Chamfer</td><td>Cuts a straight diagonal line across the corner instead of curving. Produces a sharp, angled miter.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Tight Turn Style Values</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Value</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr><td>Spline</td><td>Replaces the tight turn with a smooth cubic Bézier spline between the two horizontal stubs. Blends naturally with the rest of the wire. <em>(Default)</em></td></tr>
-            <tr><td>Straight</td><td>Replaces the tight turn with a single direct diagonal line between the two horizontal stubs. Clean and minimal; more angular in appearance.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="callout">
-        <div class="callout-label">Why This Exists</div>
-        <p>When a vertical segment is very short, both corners compete for the same space and overlap. Rather than rendering corrupt or clipped geometry, Gridline Blueprints replaces the segment entirely with a cleaner alternative. For example, with Corner Size 8 and a threshold of 2.0, any vertical segment shorter than 16 px triggers the fallback.</p>
-      </div>
-    </section>
-
-    <!-- ══ WIRE SPACING ══ -->
-    <div id="wire-spacing" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">⟺</span>
-        <h2>Wire Spacing</h2>
-      </div>
-
-      <p>
-        When multiple wires run parallel on the same axis, Wire Spacing automatically spreads them apart to prevent
-        visual overlap. This is particularly helpful in densely connected graphs where many outputs fan into a sequence
-        of nodes.
-      </p>
-
-      <div class="settings-grid">
-        <div class="setting-row header-row">
-          <div class="setting-cell">Setting</div>
-          <div class="setting-cell">Type</div>
-          <div class="setting-cell">Description</div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Enable Wire Spacing</span></div>
-          <div class="setting-cell"><span class="tag bool">bool</span></div>
-          <div class="setting-cell"><span class="setting-desc">Toggles automatic parallel wire separation. When disabled all wires may overlap if they share the same path. <span class="default-tag">default: true</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Spacing Distance</span></div>
-          <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">Pixel distance maintained between adjacent parallel wire segments. Larger values produce more separation and make individual wires easier to trace, at the cost of taking up more graph space. Range: 8–64. <span class="default-tag">default: 16</span></span></div>
-        </div>
-      </div>
-
-      <div class="callout">
-        <div class="callout-label">Tip</div>
-        <p>Wire spacing interacts with the routing pipeline's U-turn resolution and node avoidance phases. If spacing produces unexpected results near complex node clusters, try increasing Node Avoidance Padding to give the system more room to work with.</p>
-      </div>
-    </section>
-
-    <!-- ══ NODE AVOIDANCE ══ -->
-    <div id="node-avoidance" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">⬚</span>
-        <h2>Node Avoidance</h2>
-      </div>
-
-      <p>
-        Node Avoidance detects when a wire's path would travel through a node it isn't connected to, and reroutes
-        it around that node. This keeps graphs readable even when nodes are closely packed.
-      </p>
-
-      <div class="settings-grid">
-        <div class="setting-row header-row">
-          <div class="setting-cell">Setting</div>
-          <div class="setting-cell">Type</div>
-          <div class="setting-cell">Description</div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Enable Node Avoidance</span></div>
-          <div class="setting-cell"><span class="tag bool">bool</span></div>
-          <div class="setting-cell"><span class="setting-desc">Master toggle for the node avoidance system. When disabled, wires will route directly and may pass through unconnected nodes. <span class="default-tag">default: true</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Avoidance Style</span></div>
-          <div class="setting-cell"><span class="tag enum">enum</span></div>
-          <div class="setting-cell"><span class="setting-desc">Determines the algorithm used to route around a blocking node. <span class="default-tag">default: Complex</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Avoidance Padding</span></div>
-          <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">Minimum pixel clearance kept between a wire and the edge of any node it routes around. Higher values prevent wires from hugging node edges too closely. Range: 0–64. <span class="default-tag">default: 16</span></span></div>
-        </div>
-      </div>
-
-      <h3>Avoidance Style Values</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Value</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr><td>Simple</td><td>Shifts the wire's vertical segment horizontally to move it past the blocking node. Efficient and produces clean results for most cases.</td></tr>
-            <tr><td>Complex</td><td>Adds additional segments to fully route above or below a blocking node, even if that requires the wire to make extra turns. Handles tightly packed graphs and tall nodes better. <em>(Default)</em></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="callout warning">
-        <div class="callout-label">Performance Note</div>
-        <p>Node Avoidance performs a bounds check against all nodes in the graph for every wire drawn. In very large graphs with hundreds of nodes, switching to <strong>Simple</strong> avoidance style can improve editor rendering performance if needed.</p>
-      </div>
-    </section>
-
-    <!-- ══ JUNCTIONS ══ -->
-    <div id="junctions" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">✕</span>
-        <h2>Junctions</h2>
-      </div>
-
-      <p>
-        Junctions are visual markers drawn at points where two wires cross over each other without connecting.
-        They make it immediately clear that a crossing is <em>not</em> an electrical connection — an essential
-        readability tool in dense graphs.
-      </p>
-
-      <div class="settings-grid">
-        <div class="setting-row header-row">
-          <div class="setting-cell">Setting</div>
-          <div class="setting-cell">Type</div>
-          <div class="setting-cell">Description</div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Enable Junctions</span></div>
-          <div class="setting-cell"><span class="tag bool">bool</span></div>
-          <div class="setting-cell"><span class="setting-desc">Toggles junction rendering at wire crossings. When disabled, crossing wires are drawn with no visual differentiation. <span class="default-tag">default: true</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Junction Style</span></div>
-          <div class="setting-cell"><span class="tag enum">enum</span></div>
-          <div class="setting-cell"><span class="setting-desc">Visual treatment at wire crossing points. <span class="default-tag">default: Jump</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Junction Size</span></div>
-          <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">Size in pixels of the junction visual indicator. Larger values are easier to see at low zoom levels. Range: 8–32. <span class="default-tag">default: 12</span></span></div>
-        </div>
-      </div>
-
-      <h3>Junction Style Values</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Value</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr><td>Break</td><td>Leaves a gap in the passing wire at the crossing point, making the crossing unmistakably clear. Classic PCB schematic style.</td></tr>
-            <tr><td>Jump</td><td>Draws a small arc over the crossing wire, as if the wire literally hops over it. Clear and intuitive. <em>(Default)</em></td></tr>
-            <tr><td>Ring</td><td>Draws a small circle outline centered on the crossing point. Minimal and clean.</td></tr>
-            <tr><td>Disc</td><td>Draws a small filled circle at the crossing. The most visible option at small sizes.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- ══ REROUTE NODES ══ -->
-    <div id="reroute-nodes" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">⤷</span>
-        <h2>Reroute Nodes</h2>
-      </div>
-
-      <p>
-        Unreal Engine's Reroute nodes allow you to manually redirect a wire through an intermediate waypoint.
-        Gridline Blueprints extends this with an optional "hidden" mode that makes these nodes invisible
-        during normal editing.
-      </p>
-
-      <div class="settings-grid">
-        <div class="setting-row header-row">
-          <div class="setting-cell">Setting</div>
-          <div class="setting-cell">Type</div>
-          <div class="setting-cell">Description</div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Hide Reroute Nodes</span></div>
-          <div class="setting-cell"><span class="tag bool">bool</span></div>
-          <div class="setting-cell"><span class="setting-desc">When enabled, reroute nodes become visually invisible and appear as a seamless part of the wire. Hovering over the wire near a hidden reroute node will reveal it for selection and manipulation. <span class="default-tag">default: false</span></span></div>
-        </div>
-      </div>
-
-      <div class="callout">
-        <div class="callout-label">Tip</div>
-        <p>Hidden reroute nodes are still fully functional — they retain their position in the graph and continue to influence wire routing. They are revealed by hovering over the wire segment they occupy.</p>
-      </div>
-    </section>
-
-    <!-- ══ NAMED REROUTES ══ -->
-    <div id="named-reroutes" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">⬡</span>
-        <h2>Named Reroutes</h2>
-      </div>
-
-      <p>
-        Named Reroutes are a two-node system for tagging a wire with a persistent name and color, then
-        re-tapping that same value from anywhere in the Blueprint — including across different graphs.
-        Where a standard Reroute node is an anonymous waypoint, a Named Reroute is a <em>named variable tap</em>:
-        one Declaration captures the value, and any number of Usage nodes read it back.
-      </p>
-
-      <h3>The Two-Node Pattern</h3>
-
-      <div class="node-diagram">
-        <div class="node-box">
-          <div class="node-title-bar decl">MyValue</div>
-          <div class="node-pins">
-            <div class="node-pin"><span class="pin-dot connected"></span> (input)</div>
-            <div class="node-pin output">(output) <span class="pin-dot"></span></div>
-          </div>
-        </div>
-        <div class="diagram-arrow">
-          →→→ <span>GUID link</span>
-        </div>
-        <div class="node-box">
-          <div class="node-title-bar usage">MyValue</div>
-          <div class="node-pins">
-            <div class="node-pin output">(output) <span class="pin-dot connected"></span></div>
-          </div>
-        </div>
-        <div class="diagram-arrow">
-          →→→ <span>GUID link</span>
-        </div>
-        <div class="node-box">
-          <div class="node-title-bar usage">MyValue</div>
-          <div class="node-pins">
-            <div class="node-pin output">(output) <span class="pin-dot connected"></span></div>
-          </div>
-        </div>
-      </div>
-
-      <p>
-        A <strong>Declaration</strong> node has both an input pin (where the source value enters) and an output pin.
-        A <strong>Usage</strong> node exposes only an output pin — it reads the value captured by its paired Declaration
-        and makes it available at that point in the graph. Each pair is linked by a stable GUID that survives
-        renaming, copy/paste, undo, and Blueprint recompilation.
-      </p>
-
-      <div class="card-grid">
-        <div class="info-card">
-          <div class="card-title">⬡ Declaration Node</div>
-          <div class="card-body">Has a <strong>Name</strong> (editable inline or via Properties) and a <strong>Color</strong> for the title bar. The name is automatically made unique within the Blueprint when placed or renamed. Accepts any wildcard pin type — the type resolves when you connect a wire to the input.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">◈ Usage Node</div>
-          <div class="card-body">Shows only a single output pin. Displays the same name and title color as its Declaration. The pin type mirrors the Declaration's resolved type and updates automatically when the Declaration's type changes. The hidden structural input pin is an internal bookkeeping link and is never drawn.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">🔗 GUID Identity</div>
-          <div class="card-body">Each Declaration holds a <code>VariableGuid</code> that Usage nodes store in <code>DeclarationGuid</code>. This GUID is stable across renames, undo/redo, and editor restarts. If the Declaration pointer becomes stale, Usage nodes re-resolve it from the GUID automatically.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">↝ Type Propagation</div>
-          <div class="card-body">When any pin connected to the Declaration's input or any Usage's output changes type, <code>PropagatePinType</code> pushes the resolved type to the Declaration's output, all Usage outputs, and notifies every downstream node of the change.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">⌖ Cross-Graph Usage</div>
-          <div class="card-body">Usage nodes can be placed in any graph within the same Blueprint — event graphs, function graphs, macro graphs, and Animation Blueprints. The Declaration searches all graphs via <code>GetAllGraphs</code> when resolving by GUID.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">⚙ Compiler Expansion</div>
-          <div class="card-body">During Blueprint compilation, Usage nodes are transparent: they walk upstream through the Declaration's input chain (tracing through Knot nodes and chained Declarations) to find the first real source pin, then reconnect all consumers to that pin directly before removing themselves.</div>
-        </div>
-      </div>
-
-      <h3>Adding Named Reroutes</h3>
-      <ol class="steps">
-        <li><p><strong>Place a Declaration:</strong> Right-click in any Blueprint graph and search for <strong>"Add Named Reroute Declaration"</strong>. The node is placed with a default name (<code>Name</code>) and blue title color. Connect a wire to its input to capture the value.</p></li>
-        <li><p><strong>Rename it:</strong> Double-click the node title to rename it inline, or open the node's <strong>Details</strong> panel and edit the <strong>Name</strong> property. The name is validated to be unique — a numeric suffix is appended automatically if a conflict exists.</p></li>
-        <li><p><strong>Change the color:</strong> In the <strong>Details</strong> panel, click the <strong>Node Color</strong> swatch. All Usage nodes sharing this Declaration immediately update to show the new color.</p></li>
-        <li><p><strong>Create a Usage:</strong> Right-click the Declaration and choose <strong>Create Reroute Usage</strong>, or search for the Declaration's name in the action menu of the target graph. The Usage node appears with only an output pin — wire it to any input that needs the value.</p></li>
-      </ol>
-
-      <h3>Context Menu Actions</h3>
-      <p>Each node type in the Named Reroute system adds entries to the graph editor's right-click context menu under the <strong>Node Actions</strong> section.</p>
-
-      <h3 style="margin-top:20px">On a Reroute (Knot) Node</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Action</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Convert to Named Reroute</td>
-              <td>Replaces the Knot node with a new Named Reroute Declaration, preserving all incoming and outgoing connections. If the Knot had outgoing links, a matching Usage node is placed immediately to the right and wired up. The Knot's pin type is resolved and applied to the new Declaration automatically.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>On a Named Reroute Declaration</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Action</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Select Named Reroute Usages</td>
-              <td>Opens the Blueprint's Find Results panel and searches for all Usage nodes that reference this Declaration by name. Results are scoped to the current Blueprint only.</td>
-            </tr>
-            <tr>
-              <td>Create Reroute Usage</td>
-              <td>Spawns a new Usage node immediately to the right of the Declaration (offset by 144 units), already linked and typed. Equivalent to double-clicking "Jump to Definition" from a Usage.</td>
-            </tr>
-            <tr>
-              <td>Convert to Reroute</td>
-              <td>Replaces this Declaration (and <em>all</em> its Usage nodes across all graphs) with a single standard Reroute (Knot) node placed at the Declaration's position. All incoming and outgoing connections — from both the Declaration and every Usage — are transferred to the new Knot's input and output respectively.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>On a Named Reroute Usage</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Action</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Select Named Reroute Declaration</td>
-              <td>Navigates to the graph containing the paired Declaration, clears the current selection, selects the Declaration node, and zooms to fit it in view. Works across graphs — opens the correct graph tab automatically.</td>
-            </tr>
-            <tr>
-              <td>Convert to Reroute</td>
-              <td>Same as the Declaration's "Convert to Reroute" if the Declaration still exists. If the Usage is orphaned (its Declaration was deleted), replaces only this Usage with a standard Reroute node, preserving its outgoing connections.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Jump to Definition</h3>
-      <p>
-        Both node types support Unreal Engine's standard <strong>Jump to Definition</strong> action (accessible via
-        the right-click menu or the keyboard shortcut). The behavior is intentionally asymmetric:
-      </p>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Node</th><th>Jump to Definition Behavior</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Declaration</td>
-              <td>Opens the Find Results panel and searches for all Usage nodes that reference this Declaration by name — effectively "find all usages." Only available if at least one Usage node exists.</td>
-            </tr>
-            <tr>
-              <td>Usage</td>
-              <td>Navigates directly to the Declaration node in whichever graph it lives in: opens the graph tab, selects the Declaration, and zooms to fit. Only available if the Declaration is valid.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Behavior Reference</h3>
-      <div class="settings-grid">
-        <div class="setting-row header-row">
-          <div class="setting-cell">Event</div>
-          <div class="setting-cell" style="min-width:90px">Affects</div>
-          <div class="setting-cell">What Happens</div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Rename Declaration</span></div>
-          <div class="setting-cell"><span class="setting-desc">All Usages</span></div>
-          <div class="setting-cell"><span class="setting-desc">Name is validated for uniqueness (numeric suffix appended if needed). All Usage nodes call <code>ReconstructNode</code> to update their displayed title. The Blueprint action database refreshes so the renamed Declaration appears correctly in action menus.</span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Recolor Declaration</span></div>
-          <div class="setting-cell"><span class="setting-desc">All Usages</span></div>
-          <div class="setting-cell"><span class="setting-desc">All Usage nodes immediately notify their graph of a visual change via <code>NotifyNodeChanged</code>, causing the title bar color to update in real time across every graph the Usage appears in.</span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Delete Declaration</span></div>
-          <div class="setting-cell"><span class="setting-desc">All Usages</span></div>
-          <div class="setting-cell"><span class="setting-desc">All Usage nodes have their <code>Declaration</code> pointer cleared and call <code>ReconstructNode</code>, leaving them in an "Invalid Named Reroute" state. They display a black title bar and an invalid title, but remain in the graph and can be manually deleted or converted.</span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Copy &amp; Paste</span></div>
-          <div class="setting-cell"><span class="setting-desc">Declaration</span></div>
-          <div class="setting-cell"><span class="setting-desc">Each pasted Declaration receives a brand-new <code>VariableGuid</code>, making it fully independent from the original. The name is also made unique. Co-pasted Usage nodes (pasted in the same operation) automatically adopt the new Declaration via their <code>TObjectPtr</code> reference, with no manual re-linking required.</span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Undo / Redo</span></div>
-          <div class="setting-cell"><span class="setting-desc">Both</span></div>
-          <div class="setting-cell"><span class="setting-desc">After any undo, Usage nodes re-call <code>FindDeclaration()</code> from the stored GUID to restore their <code>Declaration</code> pointer, then reconnect the structural input pin and propagate the pin type. Declaration nodes re-run <code>PropagatePinType</code> to restore all Usage types.</span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Blueprint Recompile</span></div>
-          <div class="setting-cell"><span class="setting-desc">Both</span></div>
-          <div class="setting-cell"><span class="setting-desc">During compilation, Usage nodes call <code>ExpandNode</code>: the structural link is broken, then the compiler traces upstream through the Declaration's input chain to find the real source pin and reconnects all consumers directly, making the Named Reroute system fully transparent to compiled output.</span></div>
-        </div>
-      </div>
-
-      <h3>Action Menu Filtering</h3>
-      <p>
-        Usage node spawners are only shown in a Blueprint's action menu if a matching Declaration (identified by GUID)
-        exists somewhere in that Blueprint. This prevents stale entries from accumulating in the action panel after
-        Declarations are deleted. The action database is refreshed automatically whenever a Declaration is placed,
-        renamed, or destroyed.
-      </p>
-
-      <div class="callout warning">
-        <div class="callout-label">Important</div>
-        <p>Declaration names must be unique <strong>per Blueprint</strong>, not per graph. Two Declarations in the same Blueprint cannot share a name even if they are in different function graphs. If you paste a Declaration whose name already exists, a numeric suffix is appended automatically (e.g., <code>Name</code> → <code>Name1</code>).</p>
-      </div>
-
-      <div class="callout note">
-        <div class="callout-label">Cross-Graph Note</div>
-        <p>Usage nodes search all graphs in the owning Blueprint when resolving their Declaration. This means a Declaration in an event graph can be referenced by a Usage in a function graph and vice versa. However, Named Reroutes cannot span <em>across</em> different Blueprint assets.</p>
-      </div>
-    </section>
-
-    <!-- ══ ANIMATION ══ -->
-    <div id="animation" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">◉</span>
-        <h2>Wire Animation</h2>
-      </div>
-
-      <p>
-        Flow animation draws moving indicators along wires to visualize the direction of data or execution flow.
-        Useful when reviewing complex graphs or presenting to others.
-      </p>
-
-      <div class="settings-grid">
-        <div class="setting-row header-row">
-          <div class="setting-cell">Setting</div>
-          <div class="setting-cell">Type</div>
-          <div class="setting-cell">Description</div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Show Flow Animation</span></div>
-          <div class="setting-cell"><span class="tag bool">bool</span></div>
-          <div class="setting-cell"><span class="setting-desc">Master toggle for wire flow animation. When disabled all other animation settings have no effect. <span class="default-tag">default: false</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Animation Style</span></div>
-          <div class="setting-cell"><span class="tag enum">enum</span></div>
-          <div class="setting-cell"><span class="setting-desc">Visual style for animated elements. <strong>Dot</strong>: small circular indicators. <strong>Pulse</strong>: expanding brightness wave. <span class="default-tag">default: Dot</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Animated Wire Types</span></div>
-          <div class="setting-cell"><span class="tag enum">enum</span></div>
-          <div class="setting-cell"><span class="setting-desc">Controls which wires display animation. <span class="default-tag">default: ExecutionOnly</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Animation Spacing</span></div>
-          <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">Pixel distance between animated elements. For Pulse style, also controls pulse length (60% of this value). Range: 16–256. <span class="default-tag">default: 64</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Animation Speed</span></div>
-          <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">Speed of animated elements in pixels per second. Higher values = faster movement. Range: 32–512. <span class="default-tag">default: 192</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Animation Size</span></div>
-          <div class="setting-cell"><span class="tag float">float</span></div>
-          <div class="setting-cell"><span class="setting-desc">Size of animated elements relative to wire thickness. 0.1 = 10% of wire thickness; 1.0 = same size as the wire. Range: 0.1–1.0. <span class="default-tag">default: 0.2</span></span></div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-cell"><span class="setting-name">Pulse Brightness</span></div>
-          <div class="setting-cell"><span class="tag float">float</span></div>
-          <div class="setting-cell"><span class="setting-desc">Brightness multiplier for the Pulse animation style. Values above 1.0 produce a glow effect. Only applies when Animation Style is set to Pulse. Range: 0.5–3.0. <span class="default-tag">default: 1.5</span></span></div>
-        </div>
-      </div>
-
-      <h3>Animated Wire Types</h3>
-      <div class="enum-table">
-        <table>
-          <thead><tr><th>Value</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr><td>ExecutionOnly</td><td>Animation only on white execution (flow-of-control) wires. <em>(Default)</em></td></tr>
-            <tr><td>DataWiresOnly</td><td>Animation only on colored data-carrying wires (int, float, bool, etc.).</td></tr>
-            <tr><td>AllWires</td><td>Animation on every wire regardless of type.</td></tr>
-            <tr><td>SelectedOnly</td><td>Animation only on wires connected to the currently selected node(s).</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <div class="section-divider">Technical Reference</div>
-
-    <!-- ══ ARCHITECTURE ══ -->
-    <div id="architecture" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">⌬</span>
-        <h2>Architecture</h2>
-      </div>
-
-      <p>
-        Gridline Blueprints is structured as a phase-based wire routing pipeline. Each frame, collected wire data
-        passes through a series of discrete phases before being drawn.
-      </p>
-
-      <h3>Module Structure</h3>
-      <div class="code-block">
-        <div class="code-header">Plugin Layout</div>
-        <pre>GridlineBlueprints/
-  Source/GridlineBlueprints/
-    Public/
-      GridlineBlueprints.h                   <span style="color:#555">// Module interface</span>
-      GridlineBlueprintsSettings.h           <span style="color:#555">// UDeveloperSettings config class</span>
-      GridlineBlueprintsConnectionDrawingPolicy.h
-      UK2Node_NamedRerouteDeclaration.h      <span style="color:#555">// Declaration node class</span>
-      UK2Node_NamedRerouteUsage.h            <span style="color:#555">// Usage node class</span>
-    Private/
-      GridlineBlueprints.cpp                 <span style="color:#555">// Module startup / factory registration</span>
-      GridlineBlueprintsConnectionDrawingPolicy.cpp
-      GridlineBlueprintsNamedReroutes.cpp    <span style="color:#555">// Slate widgets, node factory, context menus</span>
-      UK2Node_NamedRerouteDeclaration.cpp
-      UK2Node_NamedRerouteUsage.cpp</pre>
-      </div>
-
-      <h3>Routing Pipeline Phases</h3>
-      <p>Each phase implements <code>IWireRoutingPhase</code> and operates on the full set of <code>FWireData</code> objects collected during the current draw call.</p>
-
-      <div class="card-grid">
-        <div class="info-card">
-          <div class="card-title">1. U-Turn Resolution</div>
-          <div class="card-body">Detects wires that need to travel backwards (output pin to the right of input pin) and builds appropriate U-shaped paths with calculated heights to avoid collisions.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">2. Wire Spacing</div>
-          <div class="card-body">Groups parallel wire segments and applies uniform offsets to separate them, using the configured spacing distance.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">3. U-Turn Bridge Correction</div>
-          <div class="card-body">Post-spacing correction pass that adjusts U-turn heights after spacing has shifted wire positions.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">4. Post-Spacing U-Turn</div>
-          <div class="card-body">Final U-turn geometry rebuild after all spacing corrections are applied.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">5. Node Avoidance</div>
-          <div class="card-body">Checks each wire's path against the node bounds map and reroutes segments that pass through unconnected nodes.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">6. Corner Processing</div>
-          <div class="card-body">Converts sharp direction-change points into the configured corner style (Eased, Fillet, or Chamfer) using Bézier control points.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">7. Junction Processing</div>
-          <div class="card-body">Detects segment intersections between different wires and inserts Junction markers at crossing points using the configured junction style.</div>
-        </div>
-      </div>
-
-      <h3>Factory Registration</h3>
-      <p>
-        The module registers a <code>FGridlineBlueprintsConnectionDrawingPolicyFactory</code> with
-        <code>FEdGraphUtilities</code> on startup. This factory intercepts all Blueprint and AnimGraph schema
-        pin connection draw calls and returns a <code>FGridlineBlueprintsConnectionDrawingPolicy</code> instance,
-        which inherits from Unreal's <code>FKismetConnectionDrawingPolicy</code>.
-      </p>
-      <p>
-        A second <code>FNamedRerouteNodeFactory</code> is registered via <code>FEdGraphUtilities::RegisterVisualNodeFactory</code>
-        to supply custom Slate widgets for Declaration and Usage nodes. Context menu extensions are registered
-        against three tool menu paths — <code>K2Node_Knot</code>, <code>K2Node_NamedRerouteDeclaration</code>,
-        and <code>K2Node_NamedRerouteUsage</code> — at module startup through the <code>UToolMenus</code> startup
-        callback system.
-      </p>
-    </section>
-
-    <!-- ══ COMPATIBILITY ══ -->
-    <div id="compatibility" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">✓</span>
-        <h2>Compatibility</h2>
-      </div>
-
-      <div class="card-grid">
-        <div class="info-card">
-          <div class="card-title">Graph Types</div>
-          <div class="card-body">Blueprint Event Graphs, Blueprint Function Graphs, Blueprint Macro Graphs, Animation Blueprints (AnimGraph). Material editors and other custom graph types use their own drawing policies and are not affected.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">Engine Version</div>
-          <div class="card-body">Developed and tested against Unreal Engine 5.7. Specific version requirements are listed on the Fab marketplace page.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">Platform</div>
-          <div class="card-body">Editor-only. Runs on Win64, Mac, and Linux — any platform the Unreal Engine editor supports. No platform-specific shipping builds are produced or required.</div>
-        </div>
-        <div class="info-card">
-          <div class="card-title">Other Plugins</div>
-          <div class="card-body">Uses the standard <code>FEdGraphUtilities</code> factory registration mechanism. Compatible with other plugins that use the same system, as factories are evaluated in priority order.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══ FAQ ══ -->
-    <div id="faq" class="section-anchor"></div>
-    <section class="section">
-      <div class="section-header">
-        <span class="section-icon">?</span>
-        <h2>Frequently Asked Questions</h2>
-      </div>
-
-      <h3>Will this affect my shipped game?</h3>
-      <p>No. Gridline Blueprints is an Editor-only module. It is completely excluded from packaged builds and has zero effect on runtime performance or behavior.</p>
-
-      <h3>My wires look the same after installing. What's wrong?</h3>
-      <p>Ensure the plugin is enabled in <em>Edit → Plugins → Gridline Blueprints</em> and that <strong>Enable Plugin</strong> is checked in Project Settings. A full editor restart after enabling is recommended.</p>
-
-      <h3>Does this work with Animation Blueprints?</h3>
-      <p>Yes. Gridline Blueprints hooks into the base AnimGraph drawing policy.</p>
-      
-      <h3>Does this work with Blueprint Assist?</h3>
-      <p>Yes, but Gridline Blueprints requires some space to function properly so if wires seems to route incorrectly, then do the following:
-
-Increase Blueprint Parameter Padding in Blueprint Assist: Go to Edit → Editor Preferences → Blueprint Assist Formatting → Blueprint Formatting → Blueprint Parameter Padding.
-Increase the Short Wire Threshold in Gridline Blueprints: Go to Editor Preferences → Plugins → Gridline Blueprints → Routing → Short Wire Threshold</p>
-      
-      <h3>Wires are overlapping even with Wire Spacing enabled.</h3>
-      <p>Wire spacing operates on segments that are detected as parallel. If wires share the same path through complex U-turn geometry, spacing detection may not classify them as parallel. Try increasing Node Avoidance Padding to spread segments further apart before the spacing pass runs.</p>
-
-      <h3>Node avoidance is causing wires to take strange paths.</h3>
-      <p>Switch Avoidance Style from <strong>Complex</strong> to <strong>Simple</strong>. If that still produces unwanted results, temporarily disable node avoidance to confirm it's the source of the issue, then adjust Avoidance Padding.</p>
-
-      <h3>How do I access hidden reroute nodes to move or delete them?</h3>
-      <p>Hover your mouse cursor over the wire near where the reroute node is placed. The node will appear and become selectable. You can also disable <em>Hide Reroute Nodes</em> temporarily to see all reroute nodes in the graph at once.</p>
-
-      <h3>Does flow animation impact editor performance?</h3>
-      <p>Flow animation forces a redraw on every tick for animated wires. In very large graphs, using <strong>SelectedOnly</strong> as the Animated Wire Types setting limits this to wires near the currently selected node, which substantially reduces overhead.</p>
-      
-      <h3>I deleted a Declaration and now my Usage nodes are broken. What do I do?</h3>
-      <p>Deleting a Declaration orphans all its Usage nodes — they will display a black title bar and the label "Invalid Named Reroute." You can either undo the deletion to restore the Declaration, right-click each Usage and choose <strong>Convert to Reroute</strong> to replace them individually with standard Reroute nodes, or simply delete the orphaned Usage nodes.</p>
-
-      <h3>Can a Named Reroute Declaration be referenced from a different Blueprint?</h3>
-      <p>No. Named Reroutes are scoped to a single Blueprint asset. The GUID resolution searches only the graphs belonging to the Blueprint that owns the Usage node. To share a value between Blueprints, use a standard Blueprint interface, function call, or variable.</p>
-
-      <h3>Can I use Named Reroutes across function graphs and the event graph in the same Blueprint?</h3>
-      <p>Yes. Usage nodes search all graphs in the owning Blueprint when resolving their Declaration. A Declaration in the event graph can be referenced by a Usage in a function graph and vice versa.</p>
-    </section>
-
-  </div><!-- /content -->
-
-  <footer class="footer">
-    <div class="footer-brand">Gridline Blueprints</div>
-    <div class="footer-note">© 2025 HelixTheHare — All rights reserved</div>
-  </footer>
-
-</main>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Can a Named Reroute Declaration be referenced from a different Blueprint?</span><div class="faq-icon">+</div></button>
+      <div class="faq-a">No. Named Reroutes are scoped to a single Blueprint asset. Declarations and Usages are identified by a GUID that is unique per Blueprint, and the Usage's action filter explicitly checks that a matching Declaration exists in the same Blueprint before showing the action in the context menu. If you need to share a value between Blueprints, use Blueprint interfaces, event dispatchers, or standard function calls instead.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)"><span>Can I use Named Reroutes across function graphs and the event graph in the same Blueprint?</span><div class="faq-icon">+</div></button>
+      <div class="faq-a">Yes. The Declaration search and Usage action filter both call <code>Blueprint->GetAllGraphs()</code>, which returns every graph within the Blueprint — the event graph, all function graphs, macro graphs, and so on. A Declaration placed in a function graph can have Usage nodes in the event graph, and vice versa. Note that at compile time each graph compiles independently, so the Declaration's input must ultimately trace to a pin that is reachable in the same compilation context as its Usages.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">⬡ GRIDLINE BLUEPRINTS</div>
+    <p>Created by <strong>HelixTheHare</strong> &nbsp;·&nbsp; <a href="https://github.com/HelixTheHare/HelixTheHare.github.io/wiki" target="_blank">Documentation Wiki</a> &nbsp;·&nbsp; <a href="com.epicgames.launcher://ue/Fab/product/7c0c9b3e-2a9e-4524-b152-d8158db67bfd">Fab Marketplace</a></p>
+    <p style="margin-top:.5rem">Copyright &copy; 2026 HelixTheHare. All rights reserved.</p>
+  </div>
+</footer>
 
 <script>
-  const sections = document.querySelectorAll('.section-anchor');
-  const navLinks = document.querySelectorAll('.sidebar a');
+function toggleFaq(btn){
+  const a=btn.nextElementSibling;
+  const isOpen=btn.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(q=>{
+    q.classList.remove('open');
+    q.nextElementSibling.style.display='none';
+  });
+  if(!isOpen){
+    btn.classList.add('open');
+    a.style.display='block';
+  }
+}
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-        });
-      }
-    });
-  }, { rootMargin: '-10% 0px -80% 0px' });
-
-  sections.forEach(section => observer.observe(section));
+// Smooth active nav link highlight
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{
+    if(window.scrollY>=s.offsetTop-100) cur=s.id;
+  });
+  navLinks.forEach(a=>{
+    a.style.color=a.getAttribute('href')==='#'+cur?'var(--gold)':'';
+  });
+},{passive:true});
 </script>
-
 </body>
 </html>
