@@ -879,12 +879,12 @@
         <div class="setting-row">
           <div class="setting-cell"><span class="setting-name">Short Wire Style</span></div>
           <div class="setting-cell"><span class="tag enum">enum</span></div>
-          <div class="setting-cell"><span class="setting-desc">Routing style applied to wires that fall below Short Wire Threshold. <strong>Spline</strong> uses a standard curved spline; <strong>Straight</strong> draws a single direct line between the two pins. Only applies when Short Wire Threshold is greater than 0. <span class="default-tag">default: Spline</span></span></div>
+          <div class="setting-cell"><span class="setting-desc">Routing style applied to wires that fall below Short Wire Threshold. <strong>Spline</strong> uses a standard curved spline; <strong>Straight</strong> draws a single direct line; <strong>Ortho</strong> routes with right-angle segments using Short Wire Pin Length stubs. Only applies when Short Wire Threshold is greater than 0. <span class="default-tag">default: Spline</span></span></div>
         </div>
         <div class="setting-row">
           <div class="setting-cell"><span class="setting-name">Short Wire Pin Length</span></div>
           <div class="setting-cell"><span class="tag int">int32</span></div>
-          <div class="setting-cell"><span class="setting-desc">Pin stub length used when the Short Wire fallback is active. Typically set shorter than the main Pin Length since short wires need less visual breathing room. Only applies when Short Wire Threshold is greater than 0. Range: 0–64. <span class="default-tag">default: 14</span></span></div>
+          <div class="setting-cell"><span class="setting-desc">Pin stub length used when the Short Wire fallback is active. Applies to Spline, Straight, and Ortho styles. Typically set shorter than the main Pin Length since short wires need less visual breathing room. Only applies when Short Wire Threshold is greater than 0. Range: 0–64. <span class="default-tag">default: 14</span></span></div>
         </div>
       </div>
 
@@ -906,6 +906,7 @@
           <tbody>
             <tr><td>Spline</td><td>Uses a standard Bézier spline between the two pins — the same curved style as Unreal's default wire renderer. Produces a natural, smooth look for tight connections. <em>(Default)</em></td></tr>
             <tr><td>Straight</td><td>Draws a single straight line directly between the output and input pins. Minimal and precise; best suited for adjacent nodes where there is no visual ambiguity.</td></tr>
+            <tr><td>Ortho</td><td>Routes the wire using right-angle segments — a short horizontal stub from each pin, joined by a vertical segment. Mirrors the full orthogonal routing style but scaled for short distances. Uses the Short Wire Pin Length setting to control stub length.</td></tr>
           </tbody>
         </table>
       </div>
@@ -942,6 +943,16 @@
           <div class="setting-cell"><span class="tag enum">enum</span></div>
           <div class="setting-cell"><span class="setting-desc">Visual treatment of corner curves. Only applies when Corner Size &gt; 0. <span class="default-tag">default: Eased</span></span></div>
         </div>
+        <div class="setting-row">
+          <div class="setting-cell"><span class="setting-name">Tight Turn Threshold</span></div>
+          <div class="setting-cell"><span class="tag float">float</span></div>
+          <div class="setting-cell"><span class="setting-desc">A multiplier that determines when a vertical segment is too short for normal corner rendering. If a vertical segment's length is less than <strong>Corner Size × this value</strong>, the segment is replaced with Tight Turn Style instead. Only applies when Corner Size &gt; 0. Range: 2–16. <span class="default-tag">default: 2.0</span></span></div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-cell"><span class="setting-name">Tight Turn Style</span></div>
+          <div class="setting-cell"><span class="tag enum">enum</span></div>
+          <div class="setting-cell"><span class="setting-desc">Rendering style used when a vertical segment falls below the Tight Turn Threshold. Only applies when Corner Size &gt; 0. <span class="default-tag">default: Spline</span></span></div>
+        </div>
       </div>
 
       <h3>Corner Style Values</h3>
@@ -954,6 +965,22 @@
             <tr><td>Chamfer</td><td>Cuts a straight diagonal line across the corner instead of curving. Produces a sharp, angled miter.</td></tr>
           </tbody>
         </table>
+      </div>
+
+      <h3>Tight Turn Style Values</h3>
+      <div class="enum-table">
+        <table>
+          <thead><tr><th>Value</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Spline</td><td>Replaces the tight turn with a smooth cubic Bézier spline between the two horizontal stubs. Blends naturally with the rest of the wire. <em>(Default)</em></td></tr>
+            <tr><td>Straight</td><td>Replaces the tight turn with a single direct diagonal line between the two horizontal stubs. Clean and minimal; more angular in appearance.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">Why This Exists</div>
+        <p>When a vertical segment is very short, both corners compete for the same space and overlap. Rather than rendering corrupt or clipped geometry, Gridline Blueprints replaces the segment entirely with a cleaner alternative. For example, with Corner Size 8 and a threshold of 2.0, any vertical segment shorter than 16 px triggers the fallback.</p>
       </div>
     </section>
 
