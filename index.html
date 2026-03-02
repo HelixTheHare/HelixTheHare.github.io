@@ -545,27 +545,27 @@ footer a:hover{color:var(--gold)}
       <h3>Wire Routing Pipeline</h3>
       <p>Each frame, <code>Draw()</code> calls <code>FKismetConnectionDrawingPolicy::Draw()</code> to enumerate all pin connections, each of which calls back to <code>DrawConnection()</code>. Non-short wires are deferred into <code>PendingWires</code>. After enumeration, <code>ProcessAllWires()</code> runs the following phase sequence:</p>
       <div class="arch-pipeline">
-        <div class="arch-phase">1. Basic Path</div>
+        <div class="arch-phase">Basic Path</div>
         <div class="arch-arrow">→</div>
-        <div class="arch-phase">2. U-Turn Resolution</div>
+        <div class="arch-phase">U-Turn Resolution</div>
         <div class="arch-arrow">→</div>
-        <div class="arch-phase">3. Wire Spacing</div>
+        <div class="arch-phase">Wire Spacing</div>
         <div class="arch-arrow">→</div>
-        <div class="arch-phase">4. U-Turn Bridge Correction</div>
+        <div class="arch-phase">U-Turn Bridge Correction</div>
         <div class="arch-arrow">→</div>
-        <div class="arch-phase">5. Post-Spacing U-Turn</div>
+        <div class="arch-phase">Post-Spacing U-Turn</div>
         <div class="arch-arrow">→</div>
-        <div class="arch-phase">6. Node Avoidance</div>
+        <div class="arch-phase">Node Avoidance</div>
         <div class="arch-arrow">→</div>
-        <div class="arch-phase">7. Wire Spacing (2nd pass)</div>
+        <div class="arch-phase">Wire Spacing (2nd pass)</div>
         <div class="arch-arrow">→</div>
-        <div class="arch-phase">8. U-Turn Bridge Correction (2nd pass)</div>
+        <div class="arch-phase">U-Turn Bridge Correction (2nd pass)</div>
         <div class="arch-arrow">→</div>
-        <div class="arch-phase">9. Wire Spacing (3rd pass)</div>
+        <div class="arch-phase">Wire Spacing (3rd pass)</div>
         <div class="arch-arrow">→</div>
-        <div class="arch-phase">10. Corner Processing</div>
+        <div class="arch-phase">Corner Processing</div>
         <div class="arch-arrow">→</div>
-        <div class="arch-phase">11. Junction Processing</div>
+        <div class="arch-phase">Junction Processing</div>
       </div>
       <table class="stbl" style="margin-top:1rem">
         <thead><tr><th>Phase</th><th>Class</th><th>Responsibility</th></tr></thead>
