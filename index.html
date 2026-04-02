@@ -804,20 +804,20 @@ footer a:hover { color: var(--gold-bright); }
     </div>
     <div class="hero-stats">
       <div class="hero-stat">
-        <span class="hero-stat-value">6</span>
-        <span class="hero-stat-label">Wire Phases</span>
+        <span class="hero-stat-value">0ms</span>
+        <span class="hero-stat-label">Runtime Cost</span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-value">4</span>
-        <span class="hero-stat-label">Modules</span>
+        <span class="hero-stat-value">6</span>
+        <span class="hero-stat-label">Routing Phases</span>
       </div>
       <div class="hero-stat">
         <span class="hero-stat-value">50+</span>
         <span class="hero-stat-label">Settings</span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-value">3</span>
-        <span class="hero-stat-label">Platforms</span>
+        <span class="hero-stat-value">1 key</span>
+        <span class="hero-stat-label">Graph Aligned</span>
       </div>
     </div>
   </div>
@@ -834,12 +834,12 @@ footer a:hover { color: var(--gold-bright); }
     <div class="feature-card">
       <div class="feature-icon">◈</div>
       <h3>Named Reroutes</h3>
-      <p>Cleaner reroute node behavior with hidden-node rendering and visual bridging across pin connections.</p>
+      <p>Seamless visual bridging between Named Reroute declaration and usage nodes, with inline label display along the wire.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">⌕</div>
       <h3>Context Menu</h3>
-      <p>Prefix fast-path, initialism lookup, subsequence scoring, typo-tolerance, and recent node cycling.</p>
+      <p>Typo-tolerant node search with acronym lookup, auto-expanding categories, resizable menu window, and recent node history.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">⊡</div>
@@ -1321,15 +1321,15 @@ footer a:hover { color: var(--gold-bright); }
 
     <div class="two-col reveal">
       <div class="card">
-        <div class="card-title">Reroute Bridging</div>
+        <div class="card-title">Named Reroute Bridging</div>
         <p style="font-size:0.85rem; color: var(--text-muted); font-weight: 300; line-height: 1.7;">
-          When <span class="hl">Hide Reroute Nodes</span> is active, plain reroute nodes disappear into the wire. Named reroutes behave differently: the drawing policy collects bridge information (input and output positions, connection parameters, layer IDs) per reroute node and draws a seamless wire across the gap. The node widget is suppressed while retaining full interactivity on hover.
+          When a Named Reroute Declaration and its Usage counterpart are both present, the drawing policy collects bridge information (input and output positions, connection parameters, layer IDs) per reroute node and draws a seamless wire across the gap — suppressing the node widget entirely while retaining full interactivity on hover. The named label is displayed inline along the bridge wire.
         </p>
       </div>
       <div class="card">
         <div class="card-title">Flipped Reroute Detection</div>
         <p style="font-size:0.85rem; color: var(--text-muted); font-weight: 300; line-height: 1.7;">
-          Reroute nodes placed between a forward and backward connection produce a geometric flip. The policy maintains a <span class="mono">FlippedRerouteNodes</span> set to track which reroutes involve a directional reversal, and passes this into the <span class="mono">FWirePhaseContext</span> so the U-turn phase can correctly resolve clearance direction for bridged wires.
+          Part of the Wire Routing system. Reroute nodes placed between a forward and backward connection produce a geometric flip. The drawing policy maintains a <span class="mono">FlippedRerouteNodes</span> set to track which reroutes involve a directional reversal, and passes this into the <span class="mono">FWirePhaseContext</span> so the U-turn phase can correctly resolve clearance direction for bridged wires.
         </p>
       </div>
     </div>
@@ -1850,7 +1850,7 @@ const navObserver = new IntersectionObserver((entries) => {
       });
     }
   });
-}, { threshold: 0.3 });
+}, { threshold: 0, rootMargin: '-10% 0px -80% 0px' });
 
 sections.forEach(s => navObserver.observe(s));
 </script>
