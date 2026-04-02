@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gridline Blueprints — FAB Plugin by HelixTheHare</title>
+<title>Gridline Blueprints, FAB Plugin by HelixTheHare</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
@@ -792,7 +792,7 @@ footer a:hover { color: var(--gold-bright); }
       Gridline<br><span>Blueprints</span>
     </h1>
     <p class="hero-sub">
-      Orthogonal wire routing, intelligent node alignment, fuzzy context-menu search, and named reroute improvements — all in one plugin.
+      Orthogonal wire routing, intelligent node alignment, fuzzy context-menu search, and named reroute improvements, all in one plugin.
     </p>
     <div class="hero-actions">
       <a class="btn-primary" href="https://www.fab.com/listings/7c0c9b3e-2a9e-4524-b152-d8158db67bfd" target="_blank">
@@ -901,7 +901,7 @@ footer a:hover { color: var(--gold-bright); }
 <section id="wire-routing">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-label">Module — Gridline Wire Routing</span>
+      <span class="section-label">Module, Gridline Wire Routing</span>
       <h2 class="section-title">Wire Routing</h2>
       <p class="section-desc">Replaces Unreal's default spline connections with a fully orthogonal (right-angle) routing system. Wires are processed through an ordered pipeline of independent phases, each of which can be configured or disabled independently.</p>
     </div>
@@ -995,7 +995,7 @@ footer a:hover { color: var(--gold-bright); }
             <td><span class="setting-name">Pin Length</span></td>
             <td><span class="setting-type">int32 [12–64]</span></td>
             <td><span class="setting-default">28</span></td>
-            <td>The horizontal stub length (in pixels) that exits the biased pin before the wire makes its first 90° turn. Must be ≥ Corner Size to avoid invalid geometry — the engine clamps Corner Size to Pin Length automatically.</td>
+            <td>The horizontal stub length (in pixels) that exits the biased pin before the wire makes its first 90° turn. Must be ≥ Corner Size to avoid invalid geometry, the engine clamps Corner Size to Pin Length automatically.</td>
           </tr>
           <tr>
             <td><span class="setting-name">Wire Thickness</span></td>
@@ -1029,7 +1029,7 @@ footer a:hover { color: var(--gold-bright); }
               <div class="enum-list"><span class="enum-pill">Clear Closest</span><span class="enum-pill">Clear Destination</span><span class="enum-pill">Clear Source</span></div>
             </td>
             <td><span class="setting-default">Clear Closest</span></td>
-            <td>Controls how the U-turn bridge calculates vertical clearance when nodes partially overlap. <em>Clear Closest</em> automatically routes around whichever bound is nearest to the bridge — above the source top, destination top, destination bottom, or source bottom depending on the geometry. <em>Clear Destination</em> and <em>Clear Source</em> always route around the specified node's bounds.</td>
+            <td>Controls how the U-turn bridge calculates vertical clearance when nodes partially overlap. <em>Clear Closest</em> automatically routes around whichever bound is nearest to the bridge, above the source top, destination top, destination bottom, or source bottom depending on the geometry. <em>Clear Destination</em> and <em>Clear Source</em> always route around the specified node's bounds.</td>
           </tr>
           <tr>
             <td><span class="setting-name">Enable Grid Snapping</span></td>
@@ -1044,7 +1044,7 @@ footer a:hover { color: var(--gold-bright); }
     <!-- Settings: Short Wires -->
     <div class="sub-header reveal"><div class="sub-header-dot"></div> Short Wire Settings</div>
     <p class="reveal" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem; font-weight: 300;">
-      Very short wires — where source and destination pins are close together — benefit from a different routing strategy. Fully orthogonal paths can look awkward or produce very tight corners in this case.
+      Very short wires, where source and destination pins are close together, benefit from a different routing strategy. Fully orthogonal paths can look awkward or produce very tight corners in this case.
     </p>
     <div class="settings-group reveal">
       <table class="settings-table">
@@ -1063,7 +1063,7 @@ footer a:hover { color: var(--gold-bright); }
               <div class="enum-list"><span class="enum-pill">Spline</span><span class="enum-pill">Straight</span><span class="enum-pill">Ortho</span></div>
             </td>
             <td><span class="setting-default">Ortho</span></td>
-            <td><em>Spline</em>: draws a smooth cubic Bézier between the pin stubs — mimics Unreal's default style for close nodes. <em>Straight</em>: direct diagonal line. <em>Ortho</em>: standard orthogonal path but using the shorter <span class="mono">ShortWirePinLength</span> stub.</td>
+            <td><em>Spline</em>: draws a smooth cubic Bézier between the pin stubs, mimics Unreal's default style for close nodes. <em>Straight</em>: direct diagonal line. <em>Ortho</em>: standard orthogonal path but using the shorter <span class="mono">ShortWirePinLength</span> stub.</td>
           </tr>
           <tr>
             <td><span class="setting-name">Short Wire Pin Length</span></td>
@@ -1100,7 +1100,7 @@ footer a:hover { color: var(--gold-bright); }
             <td>
               <em>Eased</em>: cubic Bézier arc using a <span class="mono">4(√2−1)</span> tangent multiplier, approximating a circular arc asymptotically. Produces slightly softer curves than Fillet.<br>
               <em>Fillet</em>: true quarter-circle arc using a <span class="mono">π</span> tangent multiplier. Mathematically precise circular corner.<br>
-              <em>Chamfer</em>: a straight diagonal cut replacing the corner — angular, engineering-style look.
+              <em>Chamfer</em>: a straight diagonal cut replacing the corner, angular, engineering-style look.
             </td>
           </tr>
           <tr>
@@ -1194,7 +1194,7 @@ footer a:hover { color: var(--gold-bright); }
             </td>
             <td><span class="setting-default">Complex</span></td>
             <td>
-              <em>Simple</em>: shifts the vertical segment sideways to clear the obstacle — fast and deterministic but only works for single-obstacle scenarios that don't require new segments.<br>
+              <em>Simple</em>: shifts the vertical segment sideways to clear the obstacle, fast and deterministic but only works for single-obstacle scenarios that don't require new segments.<br>
               <em>Complex</em>: iteratively inserts new detour segments around each obstacle in turn, fully routing the wire around multiple stacked or offset nodes.
             </td>
           </tr>
@@ -1231,10 +1231,10 @@ footer a:hover { color: var(--gold-bright); }
             </td>
             <td><span class="setting-default">Jump</span></td>
             <td>
-              <em>Break</em>: a gap in the horizontal wire where it crosses the vertical — classic PCB style.<br>
-              <em>Jump</em>: a small arc drawn over the crossing point — schematic style.<br>
+              <em>Break</em>: a gap in the horizontal wire where it crosses the vertical, classic PCB style.<br>
+              <em>Jump</em>: a small arc drawn over the crossing point, schematic style.<br>
               <em>Ring</em>: a circle outline drawn at the intersection.<br>
-              <em>Disc</em>: a filled circle drawn at the intersection — highest visibility.
+              <em>Disc</em>: a filled circle drawn at the intersection, highest visibility.
             </td>
           </tr>
           <tr>
@@ -1250,7 +1250,7 @@ footer a:hover { color: var(--gold-bright); }
     <!-- Settings: Flow Animation -->
     <div class="sub-header reveal"><div class="sub-header-dot"></div> Flow Animation Settings</div>
     <p class="reveal" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem; font-weight: 300;">
-      Flow animation renders moving indicators along wires to show data flow direction — useful when presenting graphs or debugging complex wiring.
+      Flow animation renders moving indicators along wires to show data flow direction, useful when presenting graphs or debugging complex wiring.
     </p>
     <div class="settings-group reveal">
       <table class="settings-table">
@@ -1314,7 +1314,7 @@ footer a:hover { color: var(--gold-bright); }
 <section id="named-reroutes">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-label">Module — Gridline Named Reroutes</span>
+      <span class="section-label">Module, Gridline Named Reroutes</span>
       <h2 class="section-title">Named Reroutes</h2>
       <p class="section-desc">Gridline Blueprints extends Unreal's built-in named reroute nodes to work cleanly within the orthogonal routing system, with hidden node rendering and visual bridging.</p>
     </div>
@@ -1323,7 +1323,7 @@ footer a:hover { color: var(--gold-bright); }
       <div class="card">
         <div class="card-title">Named Reroute Bridging</div>
         <p style="font-size:0.85rem; color: var(--text-muted); font-weight: 300; line-height: 1.7;">
-          When a Named Reroute Declaration and its Usage counterpart are both present, the drawing policy collects bridge information (input and output positions, connection parameters, layer IDs) per reroute node and draws a seamless wire across the gap — suppressing the node widget entirely while retaining full interactivity on hover. The named label is displayed inline along the bridge wire.
+          When a Named Reroute Declaration and its Usage counterpart are both present, the drawing policy collects bridge information (input and output positions, connection parameters, layer IDs) per reroute node and draws a seamless wire across the gap, suppressing the node widget entirely while retaining full interactivity on hover. The named label is displayed inline along the bridge wire.
         </p>
       </div>
       <div class="card">
@@ -1345,7 +1345,7 @@ footer a:hover { color: var(--gold-bright); }
 <section id="context-menu">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-label">Module — Gridline Context Menu</span>
+      <span class="section-label">Module, Gridline Context Menu</span>
       <h2 class="section-title">Context Menu</h2>
       <p class="section-desc">Upgrades the Blueprint node context menu with fuzzy search, category auto-expansion, resizable dimensions, and a recent-node cycling system. Each feature is a self-contained module that activates on engine init and responds to settings changes at runtime.</p>
     </div>
@@ -1367,10 +1367,10 @@ footer a:hover { color: var(--gold-bright); }
           For each spawner, the system tokenizes the display name into lowercase alpha-numeric words. From these tokens it generates:
         </p>
         <ul style="font-size:0.83rem; color: var(--text-muted); font-weight:300; line-height:1.9; margin-top:0.75rem; padding-left:1.25rem;">
-          <li><span class="hl">Spaceless concatenation</span> — e.g. <span class="mono">GetPlayerController</span> → <span class="mono">getplayercontroller</span></li>
-          <li><span class="hl">Acronym</span> — e.g. <span class="mono">GetPlayerController</span> → <span class="mono">gpc</span></li>
-          <li><span class="hl">Adjacent transpositions</span> — all single character swap variants (e.g. <span class="mono">getplayercontrlloer</span>)</li>
-          <li><span class="hl">Single deletions</span> — all variants with one character removed (tolerates mistyped letters)</li>
+          <li><span class="hl">Spaceless concatenation</span>, e.g. <span class="mono">GetPlayerController</span> → <span class="mono">getplayercontroller</span></li>
+          <li><span class="hl">Acronym</span>, e.g. <span class="mono">GetPlayerController</span> → <span class="mono">gpc</span></li>
+          <li><span class="hl">Adjacent transpositions</span>, all single character swap variants (e.g. <span class="mono">getplayercontrlloer</span>)</li>
+          <li><span class="hl">Single deletions</span>, all variants with one character removed (tolerates mistyped letters)</li>
         </ul>
       </div>
       <div class="card">
@@ -1474,9 +1474,9 @@ footer a:hover { color: var(--gold-bright); }
 <section id="node-alignment">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-label">Module — Gridline Nodes</span>
+      <span class="section-label">Module, Gridline Nodes</span>
       <h2 class="section-title">Node Alignment</h2>
-      <p class="section-desc">A graph-aware layout engine that arranges selected nodes into a clean, readable structure. It traverses the execution graph, places data chains, resolves overlaps, straightens wires, and aligns branches — all in one keypress.</p>
+      <p class="section-desc">A graph-aware layout engine that arranges selected nodes into a clean, readable structure. It traverses the execution graph, places data chains, resolves overlaps, straightens wires, and aligns branches, all in one keypress.</p>
     </div>
 
     <!-- How it works -->
@@ -1565,7 +1565,7 @@ footer a:hover { color: var(--gold-bright); }
             <td><span class="setting-name">Straighten Execution Wires</span></td>
             <td><span class="setting-type">bool</span></td>
             <td><span class="setting-default">true</span></td>
-            <td>When placing the first output execution node, aligns it vertically so its input execution pin matches the Y-position of the predecessor's output execution pin — producing a perfectly straight horizontal wire between the two. Subsequent branches establish their own Y anchors.</td>
+            <td>When placing the first output execution node, aligns it vertically so its input execution pin matches the Y-position of the predecessor's output execution pin, producing a perfectly straight horizontal wire between the two. Subsequent branches establish their own Y anchors.</td>
           </tr>
           <tr>
             <td><span class="setting-name">Group Alignment Mode</span></td>
@@ -1613,7 +1613,7 @@ footer a:hover { color: var(--gold-bright); }
       <div class="arch-module">
         <div class="arch-module-name">GridlineBlueprints (Root)</div>
         <div class="arch-module-type">Plugin Descriptor</div>
-        <p>The <span class="mono">.uplugin</span> descriptor that declares all sub-modules, author metadata, version information, and marketplace categorization. Contains no runtime code — all functionality lives in the child modules.</p>
+        <p>The <span class="mono">.uplugin</span> descriptor that declares all sub-modules, author metadata, version information, and marketplace categorization. Contains no runtime code, all functionality lives in the child modules.</p>
       </div>
       <div class="arch-module">
         <div class="arch-module-name">IWireRoutingPhase</div>
@@ -1652,7 +1652,7 @@ footer a:hover { color: var(--gold-bright); }
       <div class="compat-card">
         <span class="compat-check" style="color: var(--gold)">✓</span>
         <h4>Animation Blueprints</h4>
-        <p>State machines and blend graphs — all three Gridline modules work in AnimBP editors</p>
+        <p>State machines and blend graphs, all three Gridline modules work in AnimBP editors</p>
       </div>
       <div class="compat-card">
         <span class="compat-check" style="color: var(--gold)">✓</span>
@@ -1688,7 +1688,7 @@ footer a:hover { color: var(--gold-bright); }
 
     <div class="callout reveal" style="margin-top: 1.5rem;">
       <span class="callout-icon">⚑</span>
-      <span>Gridline Blueprints is an <strong>Editor Module</strong> only — it is never compiled into packaged builds. Your game's runtime performance is completely unaffected.</span>
+      <span>Gridline Blueprints is an <strong>Editor Module</strong> only, it is never compiled into packaged builds. Your game's runtime performance is completely unaffected.</span>
     </div>
   </div>
 </section>
@@ -1718,7 +1718,7 @@ footer a:hover { color: var(--gold-bright); }
           <span class="faq-chevron">▾</span>
         </button>
         <div class="faq-a">
-          Yes. Gridline Blueprints is designed to co-exist with Blueprint Assist. The two plugins use separate extension points — Gridline hooks the pin connection factory for wire rendering and uses its own keybind command for alignment, while Blueprint Assist operates through its own systems. There are no known conflicts. If you experience unexpected behavior with both enabled, try toggling each plugin's features to identify the interaction.
+          Yes. Gridline Blueprints is designed to co-exist with Blueprint Assist. The two plugins use separate extension points, Gridline hooks the pin connection factory for wire rendering and uses its own keybind command for alignment, while Blueprint Assist operates through its own systems. There are no known conflicts. If you experience unexpected behavior with both enabled, try toggling each plugin's features to identify the interaction.
         </div>
       </div>
 
@@ -1748,7 +1748,7 @@ footer a:hover { color: var(--gold-bright); }
           <span class="faq-chevron">▾</span>
         </button>
         <div class="faq-a">
-          Unreal's Blueprint context menu search operates directly on the <span class="mono">Keywords</span> field of each <span class="mono">UBlueprintNodeSpawner</span>. Hooking the search UI would require either modifying engine source or re-implementing the entire search pipeline. By pre-enriching keywords at startup, Gridline Fuzzy Search integrates with Unreal's existing search at zero per-keystroke cost — the engine's standard substring matching does the rest.
+          Unreal's Blueprint context menu search operates directly on the <span class="mono">Keywords</span> field of each <span class="mono">UBlueprintNodeSpawner</span>. Hooking the search UI would require either modifying engine source or re-implementing the entire search pipeline. By pre-enriching keywords at startup, Gridline Fuzzy Search integrates with Unreal's existing search at zero per-keystroke cost, the engine's standard substring matching does the rest.
         </div>
       </div>
 
@@ -1758,7 +1758,7 @@ footer a:hover { color: var(--gold-bright); }
           <span class="faq-chevron">▾</span>
         </button>
         <div class="faq-a">
-          Yes. Wire Spacing, Node Avoidance, Junctions, and Flow Animation each have their own enable toggle. Corners can be disabled by setting Corner Size to 0. The U-turn system is always active when the plugin is enabled (it handles backward connections). Each phase operates independently — you can mix and match configurations freely.
+          Yes. Wire Spacing, Node Avoidance, Junctions, and Flow Animation each have their own enable toggle. Corners can be disabled by setting Corner Size to 0. The U-turn system is always active when the plugin is enabled (it handles backward connections). Each phase operates independently, you can mix and match configurations freely.
         </div>
       </div>
 
@@ -1777,7 +1777,7 @@ W        When you disable the plugin, you’ll be prompted to convert all Named 
           <span class="faq-chevron">▾</span>
         </button>
         <div class="faq-a">
-          Yes. Pressing the Alignment Keybind (<span class="mono">F</span> by default) expands your selection through all connected execution and data pins before aligning — it effectively selects the full connected graph from your selection and processes it. The Selected-Only Keybind (<span class="mono">G</span>) aligns only the nodes you have explicitly selected, without expanding. This is useful for fine-tuning a portion of a larger graph without disturbing other nodes.
+          Yes. Pressing the Alignment Keybind (<span class="mono">F</span> by default) expands your selection through all connected execution and data pins before aligning, it effectively selects the full connected graph from your selection and processes it. The Selected-Only Keybind (<span class="mono">G</span>) aligns only the nodes you have explicitly selected, without expanding. This is useful for fine-tuning a portion of a larger graph without disturbing other nodes.
         </div>
       </div>
 
@@ -1787,7 +1787,7 @@ W        When you disable the plugin, you’ll be prompted to convert all Named 
           <span class="faq-chevron">▾</span>
         </button>
         <div class="faq-a">
-          Currently Gridline Blueprints targets Blueprint and Animation Blueprint graph editors. The architecture is designed with extensibility in mind — the <span class="mono">IsEnabledForCurrentGraph</span> check in the drawing policy could be extended for other graph types in future updates. Follow the FAB listing for update notes.
+          Currently Gridline Blueprints targets Blueprint and Animation Blueprint graph editors. The architecture is designed with extensibility in mind, the <span class="mono">IsEnabledForCurrentGraph</span> check in the drawing policy could be extended for other graph types in future updates. Follow the FAB listing for update notes.
         </div>
       </div>
     </div>
