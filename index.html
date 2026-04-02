@@ -1764,12 +1764,11 @@ footer a:hover { color: var(--gold-bright); }
 
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          What is the difference between Simple and Complex node avoidance?
+          What happens to my Named Reroute nodes if I disable the plugin?
           <span class="faq-chevron">▾</span>
         </button>
-        <div class="faq-a">
-          <em>Simple</em> avoidance shifts the existing vertical segment sideways until it clears the obstacle, without adding new segments. It works well for single obstacles and is very fast. <em>Complex</em> avoidance iterates over obstacles and inserts additional detour segments for each one — it can route around multiple stacked or offset nodes at the cost of more complex wire geometry. For most graphs, Complex is recommended (it's the default). Use Simple if you notice unexpected routing on very dense graphs.
-        </div>
+         <div class="faq-a">
+W        When you disable the plugin, you’ll be prompted to convert all Named Reroute nodes into standard Reroute nodes. If you choose not to convert them, they will disappear while the plugin is disabled. As long as the blueprint isn’t saved during this time, the Named Reroute nodes will reappear once the plugin is re-enabled.        </div>
       </div>
 
       <div class="faq-item">
